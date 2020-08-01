@@ -19,10 +19,7 @@ public class EnemyShootable : MonoBehaviour
     private void CreateBullet(Vector2 direction)
     {
         GameObject bullet = MF_AutoPool.Spawn(_enemy.Weapon.Projectile, transform.position, transform.rotation);
-        bullet.GetComponent<Projectile>().Speed = _enemy.Weapon.ProjectileSpeed;
-        bullet.GetComponent<Projectile>().Lifetime = _enemy.Weapon.ProjectileLifetime;
-        bullet.GetComponent<Projectile>().Damage = _enemy.Weapon.Damage;
-        bullet.GetComponent<Projectile>().Initialize(direction);
+        bullet.GetComponent<Projectile>().Initialize(direction, _enemy.Weapon);
     }
 
     public void Burst()

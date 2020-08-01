@@ -12,7 +12,7 @@ public class PlayerCrosshair : MonoBehaviour
         _crosshair = MF_AutoPool.Spawn(_crosshairPrefab, _player.MousePos, Quaternion.identity);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _crosshair.transform.position = new Vector2(_player.MousePos.x, _player.MousePos.y);
     }

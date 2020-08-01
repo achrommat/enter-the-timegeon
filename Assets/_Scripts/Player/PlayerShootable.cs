@@ -19,10 +19,11 @@ public class PlayerShootable : MonoBehaviour
 
     private void CreateBullet(Transform shootPosition)
     {
-        GameObject bullet = MF_AutoPool.Spawn(_player.Weapon.Projectile, shootPosition.position, shootPosition.rotation);
-        bullet.GetComponent<Projectile>().Speed = _player.Weapon.ProjectileSpeed;
-        bullet.GetComponent<Projectile>().Lifetime = _player.Weapon.ProjectileLifetime;
-        bullet.GetComponent<Projectile>().Damage = _player.Weapon.Damage;
-        bullet.GetComponent<Projectile>().Initialize(shootPosition.right);
+        Quaternion rotation = Quaternion.Euler(0, 0, shootPosition.eulerAngles.z + Random.Range(-_player.Weapon.Recoil, _player.Weapon.Recoil));
+        GameObject projectileObj = MF_AutoPool.Spawn(_player.Weapon.Projectile, shootPosition.position, rotation);
+        Projectile projectile = projectileObj.GetComponent<Projectile>();
+        Vector3 velocity = projectileObj.transform.rotation * Vector3.right;
+        //GameObject bullet = MF_AutoPool.Spawn(_player.Weapon.Projectile, shootPosition.position, shootPosition.rotation);
+        projectile.Initialize(velocity, _player.Weapon);
     }
 }

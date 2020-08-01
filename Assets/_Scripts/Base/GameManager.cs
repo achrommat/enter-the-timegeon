@@ -16,22 +16,16 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [Header("Links")]
     public PlayerController Player;
-    public GameObject ChainLighting;
     public EnemySpawner EnemySpawner;
-
-    public float TimeToRestart = 5f;
-
+    public Canvas Canvas;
     public GameObject Clip;
-
     public AudioSource Audio;
 
-    [SerializeField] private float _timeToShuffle = 30f;
-    private float _startTimeToShuffle;
 
+    public float TimeToRestart = 5f;
     private AudioSource[] allAudioSources;
-
-    public Canvas Canvas;
 
     public void StopAllAudio()
     {
@@ -43,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _startTimeToShuffle = _timeToShuffle;
+        
     }
 
     public void PlayAudio(AudioClip clip)

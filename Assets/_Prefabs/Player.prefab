@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 2833996375286155110}
-  Weapon: {fileID: 0}
+  Weapon: {fileID: 11400000, guid: 99f900cab6cac7b4499662d3dd5e392b, type: 2}
   Shootable: {fileID: 2833996375286155112}
   Stats: {fileID: 2833996375286155115}
   Animator: {fileID: 2833996375286155108}
