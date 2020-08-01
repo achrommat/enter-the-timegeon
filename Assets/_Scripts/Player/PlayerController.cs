@@ -29,11 +29,36 @@ public class PlayerController : MonoBehaviour
     public Collider2D Collider;
     public HealthBar HealthBar;
 
+    private float _horizontalMove, _verticalMove = 0f;
     [HideInInspector] public bool IsDead = false;
     [HideInInspector] public Vector2 StartPosition;
+    public Vector3 MousePos
+    {
+        get
+        {
+            return _mousePos;
+        }
+        set
+        {
+            _mousePos = value;
+        }
+    }
+    public Vector3 MouseVector
+    {
+        get
+        {
+            return _mouseVector;
+        }
+        set
+        {
+            _mouseVector = value;
+        }
+    }
+    private Vector3 _mousePos, _mouseVector;
 
     private void Start()
     {
+        GetMouseInput();
         StartPosition = transform.position;
     }
 
@@ -44,6 +69,12 @@ public class PlayerController : MonoBehaviour
             IsDead = true;
             GameManager.Instance.PlayerDeath();
         }
+    }
+
+    private void Update()
+    {
+        GetInput();
+        FlipSprite();
     }
 
     private void FixedUpdate()
@@ -61,42 +92,45 @@ public class PlayerController : MonoBehaviour
         Shoot();
     }
 
+    private void GetInput()
+    {
+        _horizontalMove = Input.GetAxis("Horizontal");
+        _verticalMove = Input.GetAxis("Vertical"); //capture wasd and arrow controls
+        GetMouseInput();
+    }
+
     private void Move()
     {
-        float horizontalMove = GetHorizontalInput();
-        float verticalMove = GetVerticalInput();
-        float horizontalSpeed = horizontalMove * Stats.Speed;
-        float verticalSpeed = verticalMove * Stats.Speed;
-
+        float horizontalSpeed = _horizontalMove * Stats.Speed;
+        float verticalSpeed = _verticalMove * Stats.Speed;
         Rigidbody.velocity = new Vector2(horizontalSpeed, verticalSpeed);
+    }
 
-        if (horizontalMove < 0)
-        {
-            Sprite.flipX = true;
-        }
-        if (horizontalMove > 0)
+    private void FlipSprite()
+    {
+        float gunAngle = -1 * Mathf.Atan2(_mouseVector.y, _mouseVector.x) * Mathf.Rad2Deg;
+        if ((-90f < gunAngle) && (gunAngle < 90f))
         {
             Sprite.flipX = false;
         }
+        else
+        {
+            Sprite.flipX = true;
+        }
     }
 
-    private float GetHorizontalInput()
+    private void GetMouseInput()
     {
-        float horizontalMove = Input.GetAxis("Horizontal");
-        return horizontalMove;
-    }
-
-    private float GetVerticalInput()
-    {
-        float verticalMove = Input.GetAxis("Vertical");
-        return verticalMove;
+        _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _mousePos.z = transform.position.z;
+        _mouseVector = (_mousePos - transform.position).normalized;
     }
 
     private void Shoot()
     {
-        if (Input.GetKey(KeyCode.RightControl))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            Shootable.Shoot();
+            //Shootable.Shoot();
         }
     }
 }
