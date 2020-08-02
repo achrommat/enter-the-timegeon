@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 7657061719638695039}
   - component: {fileID: 2196363575596095178}
   - component: {fileID: 5894771266435619781}
+  - component: {fileID: 587447921963399806}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -294,6 +295,21 @@ MonoBehaviour:
   _player: {fileID: 2833996375286155113}
   _rewindCooldown: 5
   _rewindDuration: 3
+--- !u!114 &587447921963399806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833996375286155114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129bf35f063b318448f0aa16cee2afa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2833996375286155113}
+  _timestop: {fileID: 7420605565922154121, guid: 09ab79c12b3d5934e81cea16ad2b949f, type: 3}
+  _timestopCooldown: 5
 --- !u!1 &2833996375869130252
 GameObject:
   m_ObjectHideFlags: 0

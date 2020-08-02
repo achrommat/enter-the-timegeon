@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : ChronosMonoBehaviour
 {
     public bool Hit = false;
     public Stats Stats;
@@ -22,6 +22,17 @@ public class EnemyController : MonoBehaviour
 
     protected bool _isDead = false;
 
+
+
+    [SerializeField] private float _xBoundary = 28;
+    private Vector2 _movePoint, _patrolPointA, _patrolPointB;
+    private bool _isAtPoint = false;
+    private bool _hasPatrolPoints = false;
+    private Vector2[] _patrolPoints;
+    private int _randomPoint;
+    [SerializeField] private float _waitTime = 1f;
+    private float _originWaitTime;
+
     public virtual void OnSpawned()
     {
         _isDead = false;
@@ -29,6 +40,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        _originWaitTime = _waitTime;
         _player = GameManager.Instance.Player;
         //Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
@@ -44,15 +56,48 @@ public class EnemyController : MonoBehaviour
         Hit = false;
     }
 
+    private void GetPatrolPoints()
+    {
+        _patrolPointA = new Vector2(_xBoundary, transform.position.y);
+        _patrolPointB = new Vector2(-_xBoundary, transform.position.y);
+        _patrolPoints = new Vector2[] { _patrolPointA, _patrolPointB };
+        _randomPoint = Random.Range(0, _patrolPoints.Length);
+        _hasPatrolPoints = true;
+    }
+
+    private void Patrol()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, _patrolPoints[_randomPoint], Stats.Speed * ChronosTime.deltaTime);
+
+        if (Vector2.Distance(_patrolPoints[_randomPoint], transform.position) < 0.2f)
+        {
+            _waitTime -= ChronosTime.deltaTime;
+            if (_waitTime <= 0f)
+            {
+                _randomPoint = Random.Range(0, _patrolPoints.Length);
+                _waitTime = _originWaitTime;
+            }
+        }
+    }
+
     protected virtual void Update()
     {
         if (!Stats.IsAlive())
         {
-            DeathHandler();
+            //DeathHandler();
             return;
         }
 
-        _previousPosition = transform.position;
+        if (!_hasPatrolPoints)
+        {
+            GetPatrolPoints();
+        }
+        else
+        {
+            Patrol();
+        }
+
+        /*_previousPosition = transform.position;
 
 
         if (GetDirection() < 0)
@@ -72,7 +117,7 @@ public class EnemyController : MonoBehaviour
         {
             Shoot();
         }
-        MoveAway();
+        MoveAway();*/
     }
 
     protected virtual void DeathHandler()
