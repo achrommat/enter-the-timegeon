@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5534985943434893806}
   - component: {fileID: 1333123771622139796}
   - component: {fileID: 2086449699348520043}
+  - component: {fileID: -8474654141701185033}
+  - component: {fileID: 6723440970842144969}
   m_Layer: 0
   m_Name: PlayerProjectile
   m_TagString: Untagged
@@ -145,8 +147,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1333123771622139796}
+  _timeline: {fileID: 6723440970842144969}
   Speed: 0
   Lifetime: 0
   CurrentLifetime: 0
   Damage: 0
   _explosion: {fileID: 1049465036424695676}
+--- !u!114 &-8474654141701185033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049465036424695676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039dfc7e753bd42a8a59285d15464252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
+  poolScript: {fileID: 0}
+  timeSpawned: 0
+--- !u!114 &6723440970842144969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049465036424695676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
+  _mode: 1
+  _globalClockKey: Player
+  _rewindable: 1
+  _recordingDuration: 30

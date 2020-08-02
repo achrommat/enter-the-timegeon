@@ -1,10 +1,11 @@
-﻿using MoreMountains.Feedbacks;
+﻿using Chronos;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum PlayerState { UNDER_CONTROL };
+public enum PlayerState { UNDER_CONTROL, DASHING };
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : ChronosMonoBehaviour
 {
     private PlayerState _state = PlayerState.UNDER_CONTROL;
     public PlayerState State
@@ -23,12 +24,35 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D Rigidbody;
     public Weapon Weapon;
     public PlayerShootable Shootable;
+    public PlayerDash Dash;
     public Stats Stats;
     public Animator Animator;
     public SpriteRenderer Sprite;
     public Collider2D Collider;
     public HealthBar HealthBar;
 
+    public float HorizontalMove
+    {
+        get
+        {
+            return _horizontalMove;
+        }
+        set
+        {
+            _horizontalMove = value;
+        }
+    }
+    public float VerticalMove
+    {
+        get
+        {
+            return _verticalMove;
+        }
+        set
+        {
+            _verticalMove = value;
+        }
+    }
     private float _horizontalMove, _verticalMove = 0f;
     [HideInInspector] public bool IsDead = false;
     [HideInInspector] public Vector2 StartPosition;
@@ -79,10 +103,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if (!Stats.IsAlive())
         {
             Death();
+            return;
+        }
+
+        if (_state != PlayerState.UNDER_CONTROL)
+        {
             return;
         }
 
@@ -90,12 +118,21 @@ public class PlayerController : MonoBehaviour
 
         Move();
         Shoot();
+        InitializeDash();
+    }
+
+    private void InitializeDash()
+    {
+        if (Input.GetKey(KeyCode.Mouse1) && (ChronosTime.rigidbody2D.velocity.magnitude > 0f))
+        {
+            Dash.Initialize();
+        }
     }
 
     private void GetInput()
     {
         _horizontalMove = Input.GetAxis("Horizontal");
-        _verticalMove = Input.GetAxis("Vertical"); //capture wasd and arrow controls
+        _verticalMove = Input.GetAxis("Vertical");
         GetMouseInput();
     }
 
@@ -103,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalSpeed = _horizontalMove * Stats.Speed;
         float verticalSpeed = _verticalMove * Stats.Speed;
-        Rigidbody.velocity = new Vector2(horizontalSpeed, verticalSpeed);
+        ChronosTime.rigidbody2D.velocity = new Vector2(horizontalSpeed, verticalSpeed);
     }
 
     private void FlipSprite()

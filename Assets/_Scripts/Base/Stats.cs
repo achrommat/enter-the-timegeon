@@ -15,7 +15,7 @@ public class Stats : MonoBehaviour
         CurrentHealth = MaxHealth;
     }
 
-    public void Damage(float amount)
+    public virtual void Damage(float amount)
     {
         if (!IsAlive())
         {

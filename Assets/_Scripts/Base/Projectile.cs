@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using Chronos;
+using System.Collections;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : ChronosMonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Timeline _timeline;
     [HideInInspector] public float Speed;
     [HideInInspector] public float Lifetime;
     [HideInInspector] public float CurrentLifetime;
@@ -12,8 +14,7 @@ public class Projectile : MonoBehaviour
     public void Initialize(Vector3 direction, Weapon weapon)
     {
         SetParams(weapon);
-        StartCoroutine(DespawnAfterTime());
-        //_rb.velocity = direction * Speed;
+        _timeline.Plan(Lifetime, delegate { DespawnAfterTime(); });
         _rb.AddForce(direction * Speed, ForceMode2D.Impulse);
     }
 
@@ -24,9 +25,8 @@ public class Projectile : MonoBehaviour
         Damage = weapon.Damage;
     }
 
-    IEnumerator DespawnAfterTime()
+    private void DespawnAfterTime()
     {
-        yield return new WaitForSeconds(Lifetime);
         MF_AutoPool.Despawn(gameObject);
     }
 }
