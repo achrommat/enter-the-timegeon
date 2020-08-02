@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 2196363575596095178}
   - component: {fileID: 5894771266435619781}
   - component: {fileID: 587447921963399806}
+  - component: {fileID: 3013471355849389926}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -160,7 +161,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &967033523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +279,7 @@ MonoBehaviour:
   _slowTimeWindow: 0.5
   _distanceBetweenImages: 0.8
   _afterImage: {fileID: 4011007202173906460, guid: a3ac37b0a9b743f42949331cdd2570e4, type: 3}
-  _slowTimeScale: 0.3
+  _slowTimeScale: 0.2
   _slowTimeDuration: 2
 --- !u!114 &5894771266435619781
 MonoBehaviour:
@@ -310,6 +311,21 @@ MonoBehaviour:
   _player: {fileID: 2833996375286155113}
   _timestop: {fileID: 7420605565922154121, guid: 09ab79c12b3d5934e81cea16ad2b949f, type: 3}
   _timestopCooldown: 5
+--- !u!114 &3013471355849389926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833996375286155114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee8e2454bf6e0d4db201a9f86cf99ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2833996375286155113}
+  _shield: {fileID: 9134981737216655726, guid: 0e6dbebc5d4ae634b9e6cf0351f75020, type: 3}
+  _shieldCooldown: 5
 --- !u!1 &2833996375869130252
 GameObject:
   m_ObjectHideFlags: 0

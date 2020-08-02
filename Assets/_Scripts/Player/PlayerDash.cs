@@ -33,7 +33,7 @@ public class PlayerDash : ChronosMonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Mouse1) && _canSlowTime)
+        if (Input.GetKey(KeyCode.Space) && _canSlowTime)
         {
             GlobalClock globalClock = Timekeeper.instance.Clock("Root");
             globalClock.LerpTimeScale(_slowTimeScale, 0.5f);

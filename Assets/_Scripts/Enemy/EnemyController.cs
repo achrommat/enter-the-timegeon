@@ -22,7 +22,7 @@ public class EnemyController : ChronosMonoBehaviour
 
     protected bool _isDead = false;
 
-
+    public bool CanShoot = false;
 
     [SerializeField] private float _xBoundary = 28;
     private Vector2 _movePoint, _patrolPointA, _patrolPointB;
@@ -96,6 +96,8 @@ public class EnemyController : ChronosMonoBehaviour
         {
             Patrol();
         }
+
+        Shoot();
 
         /*_previousPosition = transform.position;
 
@@ -192,6 +194,11 @@ public class EnemyController : ChronosMonoBehaviour
 
     protected virtual void Shoot()
     {
+        if (!CanShoot)
+        {
+            return;
+        }
+
         if (Weapon.IsBurst)
         {
             Shootable.Burst();

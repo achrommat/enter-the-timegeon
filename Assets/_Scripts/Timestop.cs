@@ -6,12 +6,13 @@ public class Timestop : ChronosMonoBehaviour
 {
     [SerializeField] private float _activeTime = 3f;
     [SerializeField] private List<EnemyController> _enemies;
-    [SerializeField] private List<PlayerProjectile> _playerBullets;
+    [SerializeField] private LinkedList<PlayerProjectile> _playerBullets;
+    [SerializeField] private int _maxBulletCount = 5;
 
     public void OnSpawned()
     {
         _enemies = new List<EnemyController>();
-        _playerBullets = new List<PlayerProjectile>();
+        _playerBullets = new LinkedList<PlayerProjectile>();
         ChronosTime.Plan(_activeTime, delegate { Despawn(); });
     }
 
@@ -32,7 +33,6 @@ public class Timestop : ChronosMonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(123);
         if (collision.CompareTag("Enemy"))
         {
             _enemies.Add(collision.GetComponent<EnemyController>());
@@ -42,7 +42,13 @@ public class Timestop : ChronosMonoBehaviour
         {
             PlayerProjectile projectile = collision.GetComponent<PlayerProjectile>();
             projectile.ChronosTime.rigidbody2D.velocity = new Vector2();
-            _playerBullets.Add(projectile);
+            projectile.IsFrozen = true;
+            _playerBullets.AddFirst(projectile);
+            if (_playerBullets.Count >= _maxBulletCount)
+            {
+                _playerBullets.Last.Value.Despawn();
+                _playerBullets.RemoveLast();
+            }
         }
     }
 }

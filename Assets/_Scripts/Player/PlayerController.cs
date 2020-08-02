@@ -123,7 +123,7 @@ public class PlayerController : ChronosMonoBehaviour
 
     private void InitializeDash()
     {
-        if (Input.GetKey(KeyCode.Mouse1) && (ChronosTime.rigidbody2D.velocity.magnitude > 0f))
+        if (Input.GetKey(KeyCode.Space) && (ChronosTime.rigidbody2D.velocity.magnitude > 0f))
         {
             Dash.Initialize();
         }

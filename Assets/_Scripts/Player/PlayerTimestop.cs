@@ -21,7 +21,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
 
     private void CreateTimestop()
     {
-        if (Input.GetKeyDown(KeyCode.F) && ChronosTime.unscaledTime >= _nextTimestopTime)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && ChronosTime.unscaledTime >= _nextTimestopTime)
         {
             Vector2 pos = new Vector2(_player.MousePos.x, _player.MousePos.y);
             GameObject timestopObj = MF_AutoPool.Spawn(_timestop, pos, Quaternion.identity);

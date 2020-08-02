@@ -133,7 +133,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &2086449699348520043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1333123771622139796}
-  _timeline: {fileID: 6723440970842144969}
   Speed: 0
   Lifetime: 0
   CurrentLifetime: 0

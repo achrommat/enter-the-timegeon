@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyProjectile : Projectile
 {
-    [SerializeField] private GameObject _explosion;
+    [SerializeField] private GameObject _explosion;    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !_isDeflected)
         {
             Stats stats;
             if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
@@ -16,7 +16,7 @@ public class EnemyProjectile : Projectile
                 if (stats.IsAlive())
                 {
                     stats.Damage(Damage);
-                    GameManager.Instance.Player.Animator.SetTrigger("Hurt");
+                    //GameManager.Instance.Player.Animator.SetTrigger("Hurt");
                     MF_AutoPool.Despawn(gameObject);
                 }
             }
@@ -27,5 +27,24 @@ public class EnemyProjectile : Projectile
             exp.GetComponent<Explosion>().OnSpawned();
             MF_AutoPool.Despawn(gameObject);
         }
+
+        if (collision.CompareTag("Enemy") && _isDeflected)
+        {
+            Stats stats;
+            if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
+            {
+                if (stats.IsAlive())
+                {
+                    stats.Damage(Damage);
+                    MF_AutoPool.Despawn(gameObject);
+                }
+            }
+        }
+    }
+
+    public void Deflect(Vector2 direction)
+    {
+        _isDeflected = true;
+        ChronosTime.rigidbody2D.AddForce(direction * Speed * 2, ForceMode2D.Impulse);
     }
 }

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _localTimeScale: 1
   _paused: 0
-  _parentKey: Root
+  _parentKey: 
   _parentBlend: 0
   _key: Player
 --- !u!1 &1595880233246239065

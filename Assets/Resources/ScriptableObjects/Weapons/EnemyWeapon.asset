@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4291ff5634cfc4fb23820b67ebf89f, type: 3}
+  m_Name: EnemyWeapon
+  m_EditorClassIdentifier: 
+  Damage: 1
+  Recoil: 4
+  ProjectileSpeed: 5
+  ProjectileLifetime: 3
+  IsBurst: 0
+  IsRadial: 0
+  AttackDelay: 1
+  Projectile: {fileID: 1049465036424695676, guid: 67b819c09763f834cb470dfae63ecdae, type: 3}
+  AudioSource: {fileID: 0}
+  MuzzleFlash: {fileID: 0}

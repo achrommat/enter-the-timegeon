@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1674680186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1674680187}
+  m_Layer: 10
+  m_Name: ShootPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1674680187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674680186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9184328370822059428}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4320348338072655693
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +64,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1674680187}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,7 +166,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3271167281337995442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hit: 0
   Stats: {fileID: 6414637592709781749}
-  Weapon: {fileID: 0}
+  Weapon: {fileID: 11400000, guid: 45465408f2e060c45b002767a2dcfb16, type: 2}
   Shootable: {fileID: 7761619074555094081}
   Rigidbody: {fileID: 309086235661701957}
   Sprite: {fileID: 514493039103236199}
@@ -177,6 +208,7 @@ MonoBehaviour:
   _maxX: 0
   _minY: 0
   _maxY: 0
+  CanShoot: 1
   _xBoundary: 6
   _waitTime: 0.5
 --- !u!114 &6414637592709781749
@@ -193,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 4
   CurrentHealth: 0
-  Speed: 6
+  Speed: 5
   DamageFeedback: {fileID: 0}
 --- !u!114 &7761619074555094081
 MonoBehaviour:
@@ -207,8 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50495916e7426394cb830e13d7a7d771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 0}
-  _shootPosition: {fileID: 0}
+  _enemy: {fileID: 5320100365252421468}
+  _shootPosition: {fileID: 1674680187}
 --- !u!114 &7777850651782398667
 MonoBehaviour:
   m_ObjectHideFlags: 0
