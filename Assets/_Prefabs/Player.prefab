@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 1627169301}
   - component: {fileID: 7657061719638695039}
   - component: {fileID: 2196363575596095178}
+  - component: {fileID: 5894771266435619781}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -171,11 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recordingInterval: 0.5
+  _recordingInterval: 0.1
   _mode: 1
   _globalClockKey: Player
   _rewindable: 1
-  _recordingDuration: 30
+  _recordingDuration: 5
 --- !u!114 &2833996375286155113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +279,21 @@ MonoBehaviour:
   _afterImage: {fileID: 4011007202173906460, guid: a3ac37b0a9b743f42949331cdd2570e4, type: 3}
   _slowTimeScale: 0.3
   _slowTimeDuration: 2
+--- !u!114 &5894771266435619781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833996375286155114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fecfb3cf8211fe468d7449974d187d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2833996375286155113}
+  _rewindCooldown: 5
+  _rewindDuration: 3
 --- !u!1 &2833996375869130252
 GameObject:
   m_ObjectHideFlags: 0

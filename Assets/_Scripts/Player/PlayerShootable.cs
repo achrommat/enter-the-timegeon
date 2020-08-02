@@ -10,10 +10,10 @@ public class PlayerShootable : ChronosMonoBehaviour
 
     public void Shoot()
     {
-        if (ChronosTime.time >= _nextAttackTime)
+        if (ChronosTime.unscaledTime >= _nextAttackTime)
         {
             CreateBullet(ShootPosition);
-            _nextAttackTime = ChronosTime.time + _player.Weapon.AttackDelay;
+            _nextAttackTime = ChronosTime.unscaledTime + _player.Weapon.AttackDelay;
         }
     }
 

@@ -22,7 +22,14 @@ public class Stats : MonoBehaviour
             return;
         }
 
-        CurrentHealth -= amount;
+        for (int i = 0; i < amount; i++)
+        {
+            if (!IsAlive())
+            {
+                break;
+            }
+            CurrentHealth--;
+        }
 
         if (DamageFeedback != null)
         {
@@ -42,6 +49,13 @@ public class Stats : MonoBehaviour
             return;
         }
 
-        CurrentHealth += amount;
+        for (int i = 0; i < amount; i++)
+        {
+            if (CurrentHealth >= MaxHealth)
+            {
+                break;
+            }
+            CurrentHealth++;
+        }
     }
 }

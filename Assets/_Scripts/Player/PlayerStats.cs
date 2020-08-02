@@ -8,7 +8,7 @@ public class PlayerStats : Stats
 
     public override void Damage(float amount)
     {
-        if (!IsAlive() || _player.State == PlayerState.DASHING)
+        if (!IsAlive() || _player.State == PlayerState.DASH || _player.State == PlayerState.REWIND)
         {
             return;
         }

@@ -130,5 +130,5 @@ MonoBehaviour:
   _recordingInterval: 0.5
   _mode: 1
   _globalClockKey: Player
-  _rewindable: 1
+  _rewindable: 0
   _recordingDuration: 30

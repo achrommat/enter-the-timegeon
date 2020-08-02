@@ -3,7 +3,7 @@ using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum PlayerState { UNDER_CONTROL, DASHING };
+public enum PlayerState { UNDER_CONTROL, DASH, REWIND };
 
 public class PlayerController : ChronosMonoBehaviour
 {

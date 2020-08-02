@@ -25,7 +25,7 @@ public class PlayerDash : ChronosMonoBehaviour
 
     private void Update()
     {
-        if (_player.State == PlayerState.DASHING)
+        if (_player.State == PlayerState.DASH)
         {
             if (Vector2.Distance(transform.position, _lastImagePos) > _distanceBetweenImages)
             {
@@ -45,10 +45,10 @@ public class PlayerDash : ChronosMonoBehaviour
 
     public void Initialize()
     {
-        if (_player.State == PlayerState.UNDER_CONTROL && ChronosTime.time >= _nextDashTime)
+        if (_player.State == PlayerState.UNDER_CONTROL && ChronosTime.unscaledTime >= _nextDashTime)
         {
             StartDash();
-            _nextDashTime = ChronosTime.time + _dashCooldown;
+            _nextDashTime = ChronosTime.unscaledTime + _dashCooldown;
             ChronosTime.Plan(_dashDuration, delegate { StopDash(); });
         }
     }
@@ -56,7 +56,7 @@ public class PlayerDash : ChronosMonoBehaviour
     private void StartDash()
     {
         _previousPlayerState = _player.State;
-        _player.State = PlayerState.DASHING;
+        _player.State = PlayerState.DASH;
         _lastImagePos = transform.position;
         SpawnAfterImage();
         _player.ChronosTime.rigidbody2D.velocity = new Vector2(_player.HorizontalMove * _dashForce, _player.VerticalMove * _dashForce);
@@ -65,7 +65,7 @@ public class PlayerDash : ChronosMonoBehaviour
 
     private void StopDash()
     {
-        if (_player.State == PlayerState.DASHING)
+        if (_player.State == PlayerState.DASH)
         {
             _player.State = _previousPlayerState;
             _canSlowTime = true;
