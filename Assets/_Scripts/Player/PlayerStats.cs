@@ -8,16 +8,10 @@ public class PlayerStats : Stats
 
     public override void Damage(float amount)
     {
-        if (!IsAlive() || _player.State == PlayerState.DASH || _player.State == PlayerState.REWIND)
+        if (_player.State == PlayerState.DASH || _player.State == PlayerState.REWIND)
         {
             return;
         }
-
-        CurrentHealth -= amount;
-
-        if (DamageFeedback != null)
-        {
-            DamageFeedback.PlayFeedbacks();
-        }
+        base.Damage(amount);
     }
 }

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 2833996375286155110}
   - component: {fileID: 967033523}
   - component: {fileID: 2833996375286155113}
+  - component: {fileID: 7558717580549216089}
   - component: {fileID: 2833996375286155112}
-  - component: {fileID: 2833996375286155115}
   - component: {fileID: 1627169301}
   - component: {fileID: 7657061719638695039}
   - component: {fileID: 2196363575596095178}
@@ -195,13 +195,30 @@ MonoBehaviour:
   Weapon: {fileID: 11400000, guid: 99f900cab6cac7b4499662d3dd5e392b, type: 2}
   Shootable: {fileID: 2833996375286155112}
   Dash: {fileID: 2196363575596095178}
-  Stats: {fileID: 2833996375286155115}
+  Stats: {fileID: 7558717580549216089}
   Animator: {fileID: 2833996375286155108}
   Sprite: {fileID: 2833996375286155109}
   Collider: {fileID: 2833996375286155111}
   HealthBar: {fileID: 0}
   IsDead: 0
   StartPosition: {x: 0, y: 0}
+--- !u!114 &7558717580549216089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833996375286155114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6248aa8f33590ff459b6a4596c1b28e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 4
+  CurrentHealth: 0
+  Speed: 6
+  DamageFeedback: {fileID: 0}
+  _player: {fileID: 2833996375286155113}
 --- !u!114 &2833996375286155112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,22 +233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 2833996375286155113}
   ShootPosition: {fileID: 2833996375869130253}
---- !u!114 &2833996375286155115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2833996375286155114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f8b948493b3ac43a7d5d71a0095b18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 4
-  CurrentHealth: 0
-  Speed: 6
-  DamageFeedback: {fileID: 0}
 --- !u!114 &1627169301
 MonoBehaviour:
   m_ObjectHideFlags: 0

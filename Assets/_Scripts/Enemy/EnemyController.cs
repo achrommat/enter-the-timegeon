@@ -1,59 +1,47 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class EnemyController : ChronosMonoBehaviour
 {
-    public bool Hit = false;
+    [Header("Links")]
     public Stats Stats;
     public Weapon Weapon;
     public EnemyShootable Shootable;
     public Rigidbody2D Rigidbody;
     public SpriteRenderer Sprite;
+    public ChronosAIPath Path;
 
-    [SerializeField] private float _attackDistance;
+    [Header("Behaviour")]
+    [SerializeField] private float _attackDistance = 10f;
     private PlayerController _player;
-
-    public bool IsChangingPos = false;
-    private Vector2 _changePos;
-    [SerializeField] private float _minX, _maxX, _minY, _maxY;
-    private Vector3 _previousPosition;
-
     protected bool _isDead = false;
 
-    public bool CanShoot = false;
-
+    [Header("Patrol")]
     [SerializeField] private float _xBoundary = 28;
-    private Vector2 _movePoint, _patrolPointA, _patrolPointB;
-    private bool _isAtPoint = false;
-    private bool _hasPatrolPoints = false;
+    private Vector2 _patrolPointA, _patrolPointB;
     private Vector2[] _patrolPoints;
     private int _randomPoint;
     [SerializeField] private float _waitTime = 1f;
     private float _originWaitTime;
+    private Vector2 _changePos;
+
+    public bool IsChangingPos { get; private set; }
+
+    private void Start()
+    {
+        OnSpawned();
+    }
 
     public virtual void OnSpawned()
     {
         _isDead = false;
-    }
-
-    private void Start()
-    {
         _originWaitTime = _waitTime;
         _player = GameManager.Instance.Player;
-        //Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-    }
-
-    public void ResetHit()
-    {
-        StartCoroutine(Reset());
-    } 
-
-    private IEnumerator Reset()
-    {
-        yield return new WaitForSeconds(3f);
-        Hit = false;
+        Path.DestinationSetter.target = _player.transform;
+        Path.canMove = true;        
     }
 
     private void GetPatrolPoints()
@@ -62,7 +50,6 @@ public class EnemyController : ChronosMonoBehaviour
         _patrolPointB = new Vector2(-_xBoundary, transform.position.y);
         _patrolPoints = new Vector2[] { _patrolPointA, _patrolPointB };
         _randomPoint = Random.Range(0, _patrolPoints.Length);
-        _hasPatrolPoints = true;
     }
 
     private void Patrol()
@@ -84,62 +71,23 @@ public class EnemyController : ChronosMonoBehaviour
     {
         if (!Stats.IsAlive())
         {
-            //DeathHandler();
+            DeathHandler();
             return;
         }
 
-        if (!_hasPatrolPoints)
-        {
-            GetPatrolPoints();
-        }
-        else
-        {
-            Patrol();
-        }
-
+        //Move();
         Shoot();
-
-        /*_previousPosition = transform.position;
-
-
-        if (GetDirection() < 0)
-        {
-            Sprite.flipX = true;
-        }
-        if (GetDirection() > 0)
-        {
-            Sprite.flipX = false;
-        }
-
-        if (Vector2.Distance(transform.position, _player.transform.position) >= _attackDistance)
-        {
-            Move();
-        }
-        else
-        {
-            Shoot();
-        }
-        MoveAway();*/
+        //MoveAway();
     }
 
     protected virtual void DeathHandler()
     {
         if (!_isDead)
         {
+            Path.canMove = false;
             MF_AutoPool.Despawn(gameObject);
-
             _isDead = true;
         }
-    }
-
-    private float GetDirection()
-    {
-        Vector3 direction = new Vector3();
-        if (_previousPosition != transform.position)
-        {
-            direction = (_previousPosition - transform.position).normalized;
-        }
-        return -direction.x;
     }
 
     protected virtual void Move()
@@ -161,15 +109,11 @@ public class EnemyController : ChronosMonoBehaviour
 
                 if (currentDistance < 1f && !IsChangingPos && !enemy.GetComponent<EnemyController>().IsChangingPos)
                 {
-                    _changePos = new Vector2(Random.Range(transform.position.x - _minX, transform.position.x + _maxX), Random.Range(transform.position.y - _minY, transform.position.y + _maxY));
+                    _changePos = new Vector2(Random.Range(transform.position.x - 2, transform.position.x + 2), Random.Range(transform.position.y - 2, transform.position.y + 2));
                     IsChangingPos = true;
                 }
             }
         }
-
-        Vector2 predictedPoint = new Vector2(_player.transform.position.x, _player.transform.position.y) + _player.Rigidbody.velocity * Time.fixedDeltaTime;
-        Vector2 moveVector = (_player.transform.position - transform.position).normalized;
-        transform.position = Vector2.MoveTowards(transform.position, predictedPoint, Stats.Speed * Time.deltaTime);   
     }
 
     private void MoveAway()
@@ -194,21 +138,25 @@ public class EnemyController : ChronosMonoBehaviour
 
     protected virtual void Shoot()
     {
-        if (!CanShoot)
+        if (Vector2.Distance(_player.transform.position, transform.position) > _attackDistance)
         {
             return;
         }
 
-        if (Weapon.IsBurst)
+        switch (Weapon.Type)
         {
-            Shootable.Burst();
-            return;
+            case Weapon.TypeEnum.Burst:
+                Shootable.Burst();
+                break;
+            case Weapon.TypeEnum.Shotgun:
+                Shootable.ShotgunShoot();
+                break;
+            case Weapon.TypeEnum.Radial:
+                Shootable.RadialShoot();
+                break;
+            default:
+                Shootable.Shoot();
+                break;
         }
-        if (Weapon.IsRadial)
-        {
-            Shootable.RadialShoot();
-            return;
-        }
-        Shootable.Shoot();
     }
 }

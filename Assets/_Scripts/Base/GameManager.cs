@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GridPathfindingSystem;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
     public GameObject Clip;
     public AudioSource Audio;
 
-
     public float TimeToRestart = 5f;
     private AudioSource[] allAudioSources;
 
@@ -33,11 +33,6 @@ public class GameManager : MonoBehaviour
         {
             audioS.Stop();
         }
-    }
-
-    private void Start()
-    {
-        
     }
 
     public void PlayAudio(AudioClip clip)
@@ -89,14 +84,4 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
     }
-
-    /*private void ShuffleSpell()
-    {
-        _timeToShuffle -= Time.fixedDeltaTime;
-        if (_timeToShuffle <= 0f)
-        {
-            SpellGenerator.ShuffleSpell();
-            _timeToShuffle = _startTimeToShuffle;
-        }
-    }*/
 }

@@ -137,6 +137,10 @@ Transform:
   - {fileID: 6951515064735938554}
   - {fileID: 3030890511247216144}
   - {fileID: 5606957430094690252}
+  - {fileID: 6177357986143148831}
+  - {fileID: 291280020948471896}
+  - {fileID: 300381580342339647}
+  - {fileID: 7055314627267496452}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -204,6 +208,57 @@ MonoBehaviour:
     maxSize: 20
     maxEmptyBehavior: 0
     prefab: {fileID: 4011007202173906460, guid: a3ac37b0a9b743f42949331cdd2570e4, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
+--- !u!1 &2604476681813213181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6177357986143148831}
+  - component: {fileID: 9040563296576629871}
+  m_Layer: 0
+  m_Name: Enemy_Pistol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6177357986143148831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604476681813213181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9040563296576629871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2604476681813213181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 9127837140852683053, guid: b756e682a136cc4448f4ac0df072a301, type: 3}
     printLogOnQuit: 0
   masterPool: []
 --- !u!1 &4553795550388866914
@@ -308,6 +363,57 @@ MonoBehaviour:
     prefab: {fileID: 7420605565922154121, guid: 09ab79c12b3d5934e81cea16ad2b949f, type: 3}
     printLogOnQuit: 0
   masterPool: []
+--- !u!1 &6002300162783197607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291280020948471896}
+  - component: {fileID: 8219141711873926451}
+  m_Layer: 0
+  m_Name: Enemy_SMG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &291280020948471896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002300162783197607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8219141711873926451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002300162783197607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 6724031721868204399, guid: 6aea28fa8a3953d4e86f217a1d9f59a4, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
 --- !u!1 &6666854352777851292
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +465,57 @@ MonoBehaviour:
     prefab: {fileID: 4320348338072655693, guid: e5ae82557af6d5f46b22f56be1edfaa5, type: 3}
     printLogOnQuit: 0
   masterPool: []
+--- !u!1 &6674904806622347986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300381580342339647}
+  - component: {fileID: 9023769904946598092}
+  m_Layer: 0
+  m_Name: Enemy_Shotgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &300381580342339647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674904806622347986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9023769904946598092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674904806622347986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 6911705339925370720, guid: 4c7c23d5fe447d8409267a5058aa66b5, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
 --- !u!1 &7656387534270786832
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,5 +565,56 @@ MonoBehaviour:
     maxSize: 4
     maxEmptyBehavior: 0
     prefab: {fileID: 9134981737216655726, guid: 0e6dbebc5d4ae634b9e6cf0351f75020, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
+--- !u!1 &8799523317201490297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7055314627267496452}
+  - component: {fileID: 5984851018909638987}
+  m_Layer: 0
+  m_Name: Enemy_Radial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7055314627267496452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799523317201490297}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5984851018909638987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799523317201490297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 8989605744960785998, guid: 50a546d3cbc79434a9f9ae948e389b87, type: 3}
     printLogOnQuit: 0
   masterPool: []

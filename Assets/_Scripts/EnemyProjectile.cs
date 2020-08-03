@@ -23,8 +23,8 @@ public class EnemyProjectile : Projectile
         }
         if (collision.CompareTag("Wall"))
         {
-            GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
-            exp.GetComponent<Explosion>().OnSpawned();
+            //GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
+            //exp.GetComponent<Explosion>().OnSpawned();
             MF_AutoPool.Despawn(gameObject);
         }
 

@@ -44,9 +44,12 @@ GameObject:
   - component: {fileID: 309086235661701957}
   - component: {fileID: 3271167281337995442}
   - component: {fileID: 5320100365252421468}
-  - component: {fileID: 6414637592709781749}
+  - component: {fileID: 2048042571806025318}
   - component: {fileID: 7761619074555094081}
   - component: {fileID: 7777850651782398667}
+  - component: {fileID: 500977410}
+  - component: {fileID: 500977411}
+  - component: {fileID: 500977412}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -196,22 +199,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73134d9be01f17f47ac027528b623f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hit: 0
-  Stats: {fileID: 6414637592709781749}
+  Stats: {fileID: 2048042571806025318}
   Weapon: {fileID: 11400000, guid: 45465408f2e060c45b002767a2dcfb16, type: 2}
   Shootable: {fileID: 7761619074555094081}
   Rigidbody: {fileID: 309086235661701957}
   Sprite: {fileID: 514493039103236199}
-  _attackDistance: 0
-  IsChangingPos: 0
-  _minX: 0
-  _maxX: 0
-  _minY: 0
-  _maxY: 0
-  CanShoot: 1
+  Path: {fileID: 0}
+  _attackDistance: 8
   _xBoundary: 6
   _waitTime: 0.5
---- !u!114 &6414637592709781749
+--- !u!114 &2048042571806025318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -220,12 +217,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4320348338072655693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f8b948493b3ac43a7d5d71a0095b18, type: 3}
+  m_Script: {fileID: 11500000, guid: eb47cd87bc200234380c3cee0f2fb8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 4
   CurrentHealth: 0
-  Speed: 5
+  Speed: 3
   DamageFeedback: {fileID: 0}
 --- !u!114 &7761619074555094081
 MonoBehaviour:
@@ -256,3 +253,81 @@ MonoBehaviour:
   delay: 0
   poolScript: {fileID: 0}
   timeSpawned: 0
+--- !u!114 &500977410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320348338072655693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
+--- !u!114 &500977411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320348338072655693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2011ea0bdd2bbf4c8bdecde19219303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 0.5
+  height: 2
+  repathRate: 0.5
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 2
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 1
+  enableRotation: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 5.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 5
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &500977412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4320348338072655693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
