@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 5894771266435619781}
   - component: {fileID: 587447921963399806}
   - component: {fileID: 3013471355849389926}
+  - component: {fileID: 1933154980}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recordingInterval: 0.1
+  _recordingInterval: 0.5
   _mode: 1
   _globalClockKey: Player
   _rewindable: 1
@@ -249,6 +250,9 @@ MonoBehaviour:
   Speed: 6
   DamageFeedback: {fileID: 0}
   _player: {fileID: 2833996375286155113}
+  _maxSnapshotCount: 5
+  MaxShards: 5
+  CurrentShards: 0
 --- !u!114 &2833996375286155112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,11 +267,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 2833996375286155113}
   ShootPosition: {fileID: 2833996375869130253}
-  _shellPrefab: {fileID: 0}
+  _shellPrefab: {fileID: 7257923914406461558, guid: 1a9afc86310b0e34bbc78666668e9b91, type: 3}
   _shellEjectionPosition: {fileID: 5539606215348497015}
   _maxShellCount: 10
-  _shakeMagnitude: 1
-  _shakeRoughness: 1
+  _shakeMagnitude: 2
+  _shakeRoughness: 5
   _shakeFadeInTime: 0.2
   _shakeFadeOutTime: 0.2
 --- !u!114 &1627169301
@@ -326,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2833996375286155114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fecfb3cf8211fe468d7449974d187d2, type: 3}
   m_Name: 
@@ -364,6 +368,22 @@ MonoBehaviour:
   _player: {fileID: 2833996375286155113}
   _shield: {fileID: 9134981737216655726, guid: 0e6dbebc5d4ae634b9e6cf0351f75020, type: 3}
   _shieldCooldown: 5
+--- !u!114 &1933154980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833996375286155114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1505919fe49f248811e30d7f4bf2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 2833996375286155113}
+  _healAmount: 2
+  _rewindCooldown: 5
+  _rewindCapacity: 5
 --- !u!1 &2833996375869130252
 GameObject:
   m_ObjectHideFlags: 0

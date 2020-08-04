@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 7396171545467470113}
   - component: {fileID: 7396171545467470118}
   - component: {fileID: 856624399}
+  - component: {fileID: 3541596562123459933}
   m_Layer: 14
   m_Name: Enemy_SMG
   m_TagString: Enemy
@@ -176,6 +177,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 7128743693824597351}
   Sprite: {fileID: 7027764297933805125}
   Path: {fileID: 7396171545467470113}
+  DropLoot: {fileID: 3541596562123459933}
   _attackDistance: 10
   _xBoundary: 6
   _waitTime: 0.5
@@ -318,6 +320,20 @@ MonoBehaviour:
   uniqueID: 147161510978077077
   updateError: 0.5
   checkTime: 0.2
+--- !u!114 &3541596562123459933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724031721868204399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321af5a52d99cb94fb1d35275b365b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shardPrefab: {fileID: 8072577280900180167, guid: 7e716a2bc1699bb49a430064e9431bff, type: 3}
+  _probability: 0.25
 --- !u!1 &7396171547582208344
 GameObject:
   m_ObjectHideFlags: 0

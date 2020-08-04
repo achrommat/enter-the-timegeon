@@ -1,7 +1,7 @@
 ﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats : ChronosMonoBehaviour
 {
     [Header("Main Stats")]
     public float MaxHealth = 4;
@@ -10,7 +10,7 @@ public class Stats : MonoBehaviour
 
     public MMFeedbacks DamageFeedback;
 
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         CurrentHealth = MaxHealth;
     }

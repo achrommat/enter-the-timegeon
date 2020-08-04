@@ -13,6 +13,7 @@ public class EnemyController : ChronosMonoBehaviour
     public Rigidbody2D Rigidbody;
     public SpriteRenderer Sprite;
     public ChronosAIPath Path;
+    public EnemyDropLoot DropLoot;
 
     [Header("Behaviour")]
     [SerializeField] private float _attackDistance = 10f;
@@ -75,9 +76,7 @@ public class EnemyController : ChronosMonoBehaviour
             return;
         }
 
-        //Move();
         Shoot();
-        //MoveAway();
     }
 
     protected virtual void DeathHandler()
@@ -85,55 +84,10 @@ public class EnemyController : ChronosMonoBehaviour
         if (!_isDead)
         {
             Path.canMove = false;
+            DropLoot.Drop();
             MF_AutoPool.Despawn(gameObject);
             _isDead = true;
         }
-    }
-
-    protected virtual void Move()
-    {
-        if (IsChangingPos)
-        {
-            return;
-        }
-
-        GameObject[] gos;
-        var hash = new HashSet<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-        hash.Remove(gameObject);
-        gos = hash.ToArray();
-        foreach (GameObject enemy in gos)
-        {
-            if (enemy != null)
-            {
-                float currentDistance = Vector2.Distance(transform.position, enemy.transform.position);
-
-                if (currentDistance < 1f && !IsChangingPos && !enemy.GetComponent<EnemyController>().IsChangingPos)
-                {
-                    _changePos = new Vector2(Random.Range(transform.position.x - 2, transform.position.x + 2), Random.Range(transform.position.y - 2, transform.position.y + 2));
-                    IsChangingPos = true;
-                }
-            }
-        }
-    }
-
-    private void MoveAway()
-    {
-        if (!IsChangingPos)
-        {
-            return;
-        }
-
-        StartCoroutine(ResetFlocked());
-        if (Vector2.Distance(_changePos, transform.position) > 0.2f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, _changePos, Stats.Speed * Time.deltaTime);
-        }
-    }
-
-    private IEnumerator ResetFlocked()
-    {
-        yield return new WaitForSeconds(3f);
-        IsChangingPos = false;
     }
 
     protected virtual void Shoot()

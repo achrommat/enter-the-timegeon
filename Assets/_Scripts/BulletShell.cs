@@ -32,7 +32,6 @@ public class BulletShell : ChronosMonoBehaviour
         Vector2 direction = transform.position + transform.right;
         float randomAngle = Random.Range(-65, 65);
         direction = Quaternion.AngleAxis(randomAngle, Vector3.forward) * direction;
-        Debug.Log(direction);
         _rb.AddForce(direction * _force, ForceMode2D.Force);
     }
 

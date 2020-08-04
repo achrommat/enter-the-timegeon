@@ -25,7 +25,7 @@ public class PlayerController : ChronosMonoBehaviour
     public Weapon Weapon;
     public PlayerShootable Shootable;
     public PlayerDash Dash;
-    public Stats Stats;
+    public PlayerStats Stats;
     public Animator Animator;
     public SpriteRenderer Sprite;
     public Collider2D Collider;
@@ -169,5 +169,10 @@ public class PlayerController : ChronosMonoBehaviour
         {
             Shootable.Shoot();
         }
+    }
+
+    public void Knockback(Vector2 direction, float force)
+    {
+        ChronosTime.rigidbody2D.AddForce(direction * force, ForceMode2D.Force);
     }
 }

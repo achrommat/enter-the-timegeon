@@ -46,6 +46,19 @@ public class EnemyProjectile : Projectile
                 }
             }
         }
+
+        if (collision.CompareTag("ExplosiveBarrel"))
+        {
+            Stats stats;
+            if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
+            {
+                if (stats.IsAlive())
+                {
+                    stats.Damage(Damage);
+                    MF_AutoPool.Despawn(gameObject);
+                }
+            }
+        }
     }
 
     public void Deflect(Vector2 direction)

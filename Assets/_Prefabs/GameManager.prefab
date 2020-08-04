@@ -270,8 +270,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6210e8b4d3990a46a0a5fad929c1eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waves: []
+  Waves:
+  - Name: 
+    Enemies: []
+    Count: 0
+    Rate: 0
   SpawnPoints: []
   TimeBetweenWaves: 5
   State: 2
   CanSpawn: 0
+  IsOver: 0
+  _onChangeDoorState:
+    m_PersistentCalls:
+      m_Calls: []

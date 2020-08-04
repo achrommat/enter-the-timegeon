@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 5131160352396645888}
   - component: {fileID: 5131160352396645895}
   - component: {fileID: 1763250421}
+  - component: {fileID: 3536380326245779705}
   m_Layer: 14
   m_Name: Enemy_Radial
   m_TagString: Enemy
@@ -206,6 +207,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 4863768217440733766}
   Sprite: {fileID: 4617970375465042276}
   Path: {fileID: 5131160352396645888}
+  DropLoot: {fileID: 3536380326245779705}
   _attackDistance: 10
   _xBoundary: 6
   _waitTime: 0.5
@@ -348,3 +350,17 @@ MonoBehaviour:
   uniqueID: 1581601074823316812
   updateError: 0.5
   checkTime: 0.2
+--- !u!114 &3536380326245779705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989605744960785998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321af5a52d99cb94fb1d35275b365b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shardPrefab: {fileID: 8072577280900180167, guid: 7e716a2bc1699bb49a430064e9431bff, type: 3}
+  _probability: 0.25

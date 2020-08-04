@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - PlayerProjectile
   - EnemyProjectile
+  - Explosion
+  - ExplosiveBarrel
   layers:
   - Default
   - TransparentFX

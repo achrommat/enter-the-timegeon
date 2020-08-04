@@ -855,14 +855,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8616793501282609062, guid: 8003c960385539b4586e273124311323, type: 3}
-      propertyPath: Waves.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8616793501282609062, guid: 8003c960385539b4586e273124311323, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8003c960385539b4586e273124311323, type: 3}
 --- !u!1001 &2833996375817037182
@@ -916,18 +908,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2833996375286155112, guid: e866450d89be3dc4aa4e7b9064d287b7, type: 3}
-      propertyPath: _shakeRoughness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2833996375286155112, guid: e866450d89be3dc4aa4e7b9064d287b7, type: 3}
-      propertyPath: _shakeMagnitude
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2833996375286155112, guid: e866450d89be3dc4aa4e7b9064d287b7, type: 3}
-      propertyPath: _shellPrefab
-      value: 
-      objectReference: {fileID: 7257923914406461558, guid: 1a9afc86310b0e34bbc78666668e9b91, type: 3}
     - target: {fileID: 2833996375286155114, guid: e866450d89be3dc4aa4e7b9064d287b7, type: 3}
       propertyPath: m_Name
       value: Player

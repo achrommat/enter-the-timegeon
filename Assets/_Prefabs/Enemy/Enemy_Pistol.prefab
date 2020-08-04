@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 4996851989363911011}
   - component: {fileID: 4996851989363911012}
   - component: {fileID: 2026284374}
+  - component: {fileID: 3034866929193776852}
   m_Layer: 14
   m_Name: Enemy_Pistol
   m_TagString: Enemy
@@ -206,6 +207,7 @@ MonoBehaviour:
   Rigidbody: {fileID: 4688944456034235685}
   Sprite: {fileID: 4790628072020377095}
   Path: {fileID: 4996851989363911011}
+  DropLoot: {fileID: 3034866929193776852}
   _attackDistance: 5
   _xBoundary: 6
   _waitTime: 0.5
@@ -348,3 +350,17 @@ MonoBehaviour:
   uniqueID: 7113237575087296790
   updateError: 0.5
   checkTime: 0.2
+--- !u!114 &3034866929193776852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127837140852683053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321af5a52d99cb94fb1d35275b365b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shardPrefab: {fileID: 8072577280900180167, guid: 7e716a2bc1699bb49a430064e9431bff, type: 3}
+  _probability: 0.25
