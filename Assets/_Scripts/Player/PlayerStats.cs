@@ -16,7 +16,6 @@ public class PlayerStats : Stats
     public float MaxShards = 5f;
     public float CurrentShards;
 
-
     public override void OnEnable()
     {
         base.OnEnable();
@@ -56,6 +55,16 @@ public class PlayerStats : Stats
             return;
         }
         base.Damage(amount);
+    }
+
+    public bool HasShards()
+    {
+        return CurrentShards > 0;
+    }
+
+    public bool CanTakeShards()
+    {
+        return CurrentShards < MaxShards;
     }
 
     public void AddShard()

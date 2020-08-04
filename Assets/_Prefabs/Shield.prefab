@@ -110,7 +110,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9134981737216655726}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7639ecd5f2fa63e4d8336de7bd0fe6e2, type: 3}
   m_Name: 
@@ -119,7 +119,7 @@ MonoBehaviour:
   _paused: 0
   _parentKey: 
   _parentBlend: 0
-  _mode: 1
+  _mode: 0
   _curve:
     serializedVersion: 2
     m_Curve:

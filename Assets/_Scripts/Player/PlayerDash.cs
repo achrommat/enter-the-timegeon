@@ -5,61 +5,104 @@ public class PlayerDash : ChronosMonoBehaviour
 {
     [SerializeField] private PlayerController _player;
 
+    public int MaxDashCount = 3;
+    public int CurrentDashCount;
+
     [SerializeField] private float _dashForce = 5;
     private float _nextDashTime;
     [SerializeField] private float _dashCooldown = 1;
     [SerializeField] private float _dashDuration = 0.1f;
-    [SerializeField] private float _slowTimeWindow = 0.5f;
     private PlayerState _previousPlayerState;
-
-    // After Image
-    private Vector2 _lastImagePos;
-    [SerializeField] private float _distanceBetweenImages;
-    [SerializeField] private GameObject _afterImage;
+    [SerializeField] private float _timeToRestoreDash = 3f;
+    private float _dashRestorationTimer;
+    private bool _canRestoreDash = false;
 
     [Header("SlowTime")]
+    private float _timeToHold;
+    private float _holdTimer;
     [SerializeField] private float _slowTimeScale = 0.5f;
+    [SerializeField] private float _playerSlowTimeScale = 0.6f;
     [SerializeField] private float _slowTimeDuration = 0.5f;
+    private float _nextSlowTime;
+    [SerializeField] private float _slowTimeCooldown = 5f;
     private bool _canSlowTime = false;
+
+    [Header("After Image")]
+    private Vector2 _lastImagePos;
+    [SerializeField] private float _distanceBetweenImages;
+    [SerializeField] private GameObject _afterImage;    
+
+    private void Start()
+    {
+        _timeToHold = _dashDuration;
+        CurrentDashCount = MaxDashCount;
+    }
 
     private void Update()
     {
+        if (!_player.Stats.IsAlive())
+        {
+            return;
+        }
+
+        RestoreDashCount();
+
         if (_player.State == PlayerState.DASH)
         {
             if (Vector2.Distance(transform.position, _lastImagePos) > _distanceBetweenImages)
-            {
-                _lastImagePos = transform.position;
+            {                
                 SpawnAfterImage();
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && _canSlowTime)
+        if (GetCanDash())
+        {
+            Initialize();
+            SlowTime();
+        }
+    }
+
+    private void SlowTime()
+    {
+        if (ChronosTime.unscaledTime >= _holdTimer && _canSlowTime && ChronosTime.time >= _nextSlowTime)
         {
             GlobalClock globalClock = Timekeeper.instance.Clock("Root");
             globalClock.LerpTimeScale(_slowTimeScale, 0.5f);
-
+            GlobalClock playerClock = Timekeeper.instance.Clock("Player");
+            playerClock.LerpTimeScale(_playerSlowTimeScale, 0.5f);
+            _canSlowTime = false;
             ChronosTime.Plan(_slowTimeDuration, delegate { ResetTimeScale(); });
+            _nextSlowTime = ChronosTime.time + _nextSlowTime;
+            _holdTimer = ChronosTime.unscaledTime + _timeToHold;
         }
+    }
+
+    private bool GetCanDash()
+    {
+        bool canDash = _player.State == PlayerState.UNDER_CONTROL && Input.GetKey(KeyCode.Space) &&
+            (ChronosTime.rigidbody2D.velocity.magnitude > 0f);
+        return canDash;
     }
 
     public void Initialize()
     {
-        if (_player.State == PlayerState.UNDER_CONTROL && ChronosTime.unscaledTime >= _nextDashTime)
+        if (ChronosTime.time >= _nextDashTime && CurrentDashCount > 0)
         {
             StartDash();
-            _nextDashTime = ChronosTime.unscaledTime + _dashCooldown;
+            _nextDashTime = ChronosTime.time + _dashCooldown;
             ChronosTime.Plan(_dashDuration, delegate { StopDash(); });
         }
     }
 
     private void StartDash()
     {
+        CurrentDashCount--;
+        _canSlowTime = true;
+        _holdTimer = ChronosTime.unscaledTime + _timeToHold;
         _previousPlayerState = _player.State;
         _player.State = PlayerState.DASH;
-        _lastImagePos = transform.position;
         SpawnAfterImage();
-        //_player.ChronosTime.rigidbody2D.AddForce(new Vector2(_player.HorizontalMove, _player.VerticalMove) * _dashForce, ForceMode2D.Force);
-        _player.ChronosTime.rigidbody2D.velocity = new Vector2(_player.HorizontalMove * _dashForce, _player.VerticalMove * _dashForce);
+        _player.ChronosTime.rigidbody2D.velocity = new Vector2(_player.HorizontalMove, _player.VerticalMove).normalized * _dashForce;
         //_player.Animation.Animator.SetTrigger("Dash");
     }
 
@@ -67,9 +110,8 @@ public class PlayerDash : ChronosMonoBehaviour
     {
         if (_player.State == PlayerState.DASH)
         {
-            _player.State = _previousPlayerState;
-            _canSlowTime = true;
-            ChronosTime.Plan(_slowTimeWindow, delegate { ResetCanSlowTime(); });
+            _player.State = _previousPlayerState;           
+            ChronosTime.Plan(_dashDuration, delegate { ResetCanSlowTime(); });
         }
     }
 
@@ -85,11 +127,28 @@ public class PlayerDash : ChronosMonoBehaviour
     {
         GlobalClock globalClock = Timekeeper.instance.Clock("Root");
         globalClock.LerpTimeScale(1f, 0.5f);
+        GlobalClock playerClock = Timekeeper.instance.Clock("Player");
+        playerClock.LerpTimeScale(1f, 0.5f);
     }
 
     private void SpawnAfterImage()
     {
+        _lastImagePos = transform.position;
         GameObject afterImage = MF_AutoPool.Spawn(_afterImage, _lastImagePos, Quaternion.identity);
         afterImage.GetComponent<PlayerAfterImageEffect>().OnSpawned();
+    }
+
+    private void RestoreDashCount()
+    {
+        if (CurrentDashCount < MaxDashCount && !_canRestoreDash)
+        {
+            _dashRestorationTimer = ChronosTime.time + _timeToRestoreDash;
+            _canRestoreDash = true;
+        }
+        if (ChronosTime.time > _dashRestorationTimer && _canRestoreDash)
+        {
+            CurrentDashCount++;
+            _canRestoreDash = false;
+        }
     }
 }

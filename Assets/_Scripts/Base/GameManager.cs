@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     public float TimeToRestart = 5f;
     private AudioSource[] allAudioSources;
 
+    private void Start()
+    {
+    }
+
     public void StopAllAudio()
     {
         foreach (AudioSource audioS in allAudioSources)

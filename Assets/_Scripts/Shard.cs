@@ -22,7 +22,7 @@ public class Shard : ChronosMonoBehaviour
             PlayerStats stats;
             if ((stats = collision.GetComponent(typeof(PlayerStats)) as PlayerStats) != null)
             {
-                if (stats.IsAlive() && stats.CurrentShards < stats.MaxShards)
+                if (stats.IsAlive() && stats.CanTakeShards())
                 {
                     stats.AddShard();
                     MF_AutoPool.Despawn(gameObject);
@@ -34,15 +34,15 @@ public class Shard : ChronosMonoBehaviour
     public void Drop()
     {
         _rb = ChronosTime.rigidbody2D;
-        _rb.gravityScale = 0.3f;
+        _rb.gravityScale = 0.5f;
         AddDroppingForce();
         ChronosTime.Plan(_droppingDuration, delegate { StopDropping(); });
     }
 
     private void AddDroppingForce()
     {
-        Vector2 direction = transform.position + transform.right;
-        float randomAngle = Random.Range(-65, 65);
+        Vector2 direction = Vector2.right;
+        float randomAngle = Random.Range(45, 135);
         direction = Quaternion.AngleAxis(randomAngle, Vector3.forward) * direction;
         _rb.AddForce(direction * _droppingForce, ForceMode2D.Force);
     }
@@ -60,7 +60,7 @@ public class Shard : ChronosMonoBehaviour
 
     private void FlybackToPlayer()
     {
-        if ((Vector2.Distance(transform.position, _player.transform.position) <= _flybackDistance) && (_player.Stats.CurrentShards < _player.Stats.MaxShards))
+        if (Vector2.Distance(transform.position, _player.transform.position) <= _flybackDistance && _player.Stats.CanTakeShards())
         {
             transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _flybackSpeed * ChronosTime.deltaTime);
         }

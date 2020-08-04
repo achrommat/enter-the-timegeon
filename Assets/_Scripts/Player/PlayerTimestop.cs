@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerTimestop : ChronosMonoBehaviour
 {
@@ -11,7 +9,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
 
     private void Update()
     {
-        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL)
+        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL || !_player.Stats.HasShards())
         {
             return;
         }
@@ -23,6 +21,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse1) && ChronosTime.unscaledTime >= _nextTimestopTime)
         {
+            _player.Stats.TakeShard();
             Vector2 pos = new Vector2(_player.MousePos.x, _player.MousePos.y);
             GameObject timestopObj = MF_AutoPool.Spawn(_timestop, pos, Quaternion.identity);
             timestopObj.GetComponent<Timestop>().OnSpawned();

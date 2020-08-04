@@ -148,8 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flybackDistance: 3
   _flybackSpeed: 8
-  _droppingForce: 15
-  _droppingDuration: 0.5
+  _droppingForce: 150
+  _droppingDuration: 1
 --- !u!114 &3148239747627360142
 MonoBehaviour:
   m_ObjectHideFlags: 0

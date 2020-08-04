@@ -17,8 +17,7 @@ public class Shield : ChronosMonoBehaviour
     {
         foreach (EnemyProjectile projectile in _enemyBullets)
         {
-            Vector2 direction = projectile.transform.position - transform.position;
-            projectile.Deflect(direction);
+            projectile.Deflect();
         }
 
         MF_AutoPool.Despawn(gameObject);
@@ -29,6 +28,7 @@ public class Shield : ChronosMonoBehaviour
         if (collision.CompareTag("EnemyProjectile"))
         {
             EnemyProjectile projectile = collision.GetComponent<EnemyProjectile>();
+            projectile.DeflectVelocity = -projectile.ChronosTime.rigidbody2D.velocity;
             projectile.ChronosTime.rigidbody2D.velocity = new Vector2();
             projectile.IsFrozen = true;
             _enemyBullets.Add(projectile);

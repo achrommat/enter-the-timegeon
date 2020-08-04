@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerCrosshair : MonoBehaviour
+public class PlayerCrosshair : ChronosMonoBehaviour
 {
     [SerializeField] private PlayerController _player;
     [SerializeField] private GameObject _crosshairPrefab;
@@ -14,6 +14,8 @@ public class PlayerCrosshair : MonoBehaviour
 
     void FixedUpdate()
     {
-        _crosshair.transform.position = new Vector2(_player.MousePos.x, _player.MousePos.y);
+        Vector3 ret = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        ret.z = transform.position.z;
+        //_crosshair.transform.position = ret;
     }
 }

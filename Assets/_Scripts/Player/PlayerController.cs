@@ -98,7 +98,7 @@ public class PlayerController : ChronosMonoBehaviour
     private void Update()
     {
         GetInput();
-        FlipSprite();
+        FlipSprite();        
     }
 
     private void FixedUpdate()
@@ -118,15 +118,6 @@ public class PlayerController : ChronosMonoBehaviour
 
         Move();
         Shoot();
-        InitializeDash();
-    }
-
-    private void InitializeDash()
-    {
-        if (Input.GetKey(KeyCode.Space) && (ChronosTime.rigidbody2D.velocity.magnitude > 0f))
-        {
-            Dash.Initialize();
-        }
     }
 
     private void GetInput()

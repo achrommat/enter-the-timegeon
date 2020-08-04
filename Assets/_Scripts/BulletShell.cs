@@ -29,8 +29,8 @@ public class BulletShell : ChronosMonoBehaviour
 
     private void AddEjectionForce()
     {
-        Vector2 direction = transform.position + transform.right;
-        float randomAngle = Random.Range(-65, 65);
+        Vector2 direction = Vector2.right;
+        float randomAngle = Random.Range(45, 135);
         direction = Quaternion.AngleAxis(randomAngle, Vector3.forward) * direction;
         _rb.AddForce(direction * _force, ForceMode2D.Force);
     }

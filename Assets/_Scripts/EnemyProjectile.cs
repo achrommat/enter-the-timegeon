@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyProjectile : Projectile
 {
-    [SerializeField] private GameObject _explosion;    
+    [SerializeField] private GameObject _explosion;
+    public Vector2 DeflectVelocity;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,9 +62,10 @@ public class EnemyProjectile : Projectile
         }
     }
 
-    public void Deflect(Vector2 direction)
+    public void Deflect()
     {
         _isDeflected = true;
-        ChronosTime.rigidbody2D.AddForce(direction * Speed * 2, ForceMode2D.Impulse);
+        ChronosTime.rigidbody2D.velocity = DeflectVelocity * 2;
+        //ChronosTime.rigidbody2D.AddForce(direction * Speed * 2, ForceMode2D.Impulse);
     }
 }
