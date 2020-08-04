@@ -58,6 +58,7 @@ public class PlayerDash : ChronosMonoBehaviour
         _player.State = PlayerState.DASH;
         _lastImagePos = transform.position;
         SpawnAfterImage();
+        //_player.ChronosTime.rigidbody2D.AddForce(new Vector2(_player.HorizontalMove, _player.VerticalMove) * _dashForce, ForceMode2D.Force);
         _player.ChronosTime.rigidbody2D.velocity = new Vector2(_player.HorizontalMove * _dashForce, _player.VerticalMove * _dashForce);
         //_player.Animation.Animator.SetTrigger("Dash");
     }

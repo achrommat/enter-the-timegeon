@@ -11,8 +11,14 @@ public class EnemyProjectile : Projectile
         if (collision.CompareTag("Player") && !_isDeflected)
         {
             Stats stats;
-            if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
+            if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
             {
+                PlayerController player = collision.GetComponent<PlayerController>();
+                if (player.State == PlayerState.DASH || player.State == PlayerState.REWIND)
+                {
+                    return;
+                }
+
                 if (stats.IsAlive())
                 {
                     stats.Damage(Damage);
@@ -31,7 +37,7 @@ public class EnemyProjectile : Projectile
         if (collision.CompareTag("Enemy") && _isDeflected)
         {
             Stats stats;
-            if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
+            if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
             {
                 if (stats.IsAlive())
                 {

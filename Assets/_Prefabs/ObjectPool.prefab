@@ -141,6 +141,7 @@ Transform:
   - {fileID: 291280020948471896}
   - {fileID: 300381580342339647}
   - {fileID: 7055314627267496452}
+  - {fileID: 7493683950988968705}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -514,6 +515,57 @@ MonoBehaviour:
     maxSize: 40
     maxEmptyBehavior: 0
     prefab: {fileID: 6911705339925370720, guid: 4c7c23d5fe447d8409267a5058aa66b5, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
+--- !u!1 &7137951530251162189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7493683950988968705}
+  - component: {fileID: 4495227387672767749}
+  m_Layer: 0
+  m_Name: BulletShell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7493683950988968705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7137951530251162189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4495227387672767749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7137951530251162189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 7257923914406461558, guid: 1a9afc86310b0e34bbc78666668e9b91, type: 3}
     printLogOnQuit: 0
   masterPool: []
 --- !u!1 &7656387534270786832

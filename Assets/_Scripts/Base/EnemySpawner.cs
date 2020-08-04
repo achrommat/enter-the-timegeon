@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class EnemySpawner : MonoBehaviour
     private float _searchCountdown = 1f;
     public SpawnState State = SpawnState.COUNTING;
 
-    public bool CanSpawn = false;
+    public bool CanSpawn, IsOver = false;
+    [SerializeField] private UnityEvent _onChangeDoorState;
 
     void Start()
     {
@@ -37,11 +39,12 @@ public class EnemySpawner : MonoBehaviour
         StopAllCoroutines();
         _waveCountdown = TimeBetweenWaves;
         _nextWave = 0;
+        IsOver = false;
     }
 
     void Update()
     {
-        if (!CanSpawn)
+        if (!CanSpawn || IsOver)
         {
             return;
         }
@@ -81,6 +84,8 @@ public class EnemySpawner : MonoBehaviour
         if (_nextWave + 1 > Waves.Length - 1)
         {
             _nextWave = 0;
+            IsOver = true;
+            _onChangeDoorState.Invoke();
             Debug.Log("All Waves Complete Looping...");
         }
         else

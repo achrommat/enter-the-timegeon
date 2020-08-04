@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1336844354999124469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5539606215348497015}
+  m_Layer: 9
+  m_Name: ShellEjectionPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5539606215348497015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336844354999124469}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.20000002, y: 0.20000005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1842620521291903592}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2833996375286155114
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +263,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 2833996375286155113}
   ShootPosition: {fileID: 2833996375869130253}
+  _shellPrefab: {fileID: 0}
+  _shellEjectionPosition: {fileID: 5539606215348497015}
+  _maxShellCount: 10
+  _shakeMagnitude: 1
+  _shakeRoughness: 1
+  _shakeFadeInTime: 0.2
+  _shakeFadeOutTime: 0.2
 --- !u!114 &1627169301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 2833996375286155113}
-  _dashForce: 50
+  _dashForce: 40
   _dashCooldown: 1
   _dashDuration: 0.1
   _slowTimeWindow: 0.5
@@ -386,6 +423,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2833996375869130253}
+  - {fileID: 5539606215348497015}
   m_Father: {fileID: 2833996375286155106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
