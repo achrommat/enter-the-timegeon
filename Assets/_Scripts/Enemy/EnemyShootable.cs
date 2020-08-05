@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using UnityEngine;
 
 public class EnemyShootable : ChronosMonoBehaviour
@@ -27,15 +28,15 @@ public class EnemyShootable : ChronosMonoBehaviour
         if (ChronosTime.time >= _nextAttackTime)
         {
             Vector2 direction = GetDirection();
-            CreateBullet(direction.normalized);
+            CreateBullet(direction.normalized, _shootPosition.position);
             //CreateBullet((GameManager.Instance.Player.transform.position - transform.position).normalized);
             _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
         }
     }
 
-    private void CreateBullet(Vector2 direction)
+    private void CreateBullet(Vector2 direction, Vector2 position)
     {
-        GameObject bullet = MF_AutoPool.Spawn(_enemy.Weapon.Projectile, transform.position, transform.rotation);
+        GameObject bullet = MF_AutoPool.Spawn(_enemy.Weapon.Projectile, position, Quaternion.identity);
         bullet.GetComponent<Projectile>().Initialize(direction, _enemy.Weapon);
     }
 
@@ -53,8 +54,8 @@ public class EnemyShootable : ChronosMonoBehaviour
         for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
         {
             Vector2 direction = GetDirection();
-            CreateBullet(direction.normalized);
-            yield return new WaitForSeconds(_enemy.Weapon.ProjectileFireRate);
+            CreateBullet(direction.normalized, _shootPosition.position);
+            yield return ChronosTime.WaitForSeconds(_enemy.Weapon.ProjectileFireRate);
         }        
     }
 
@@ -70,7 +71,7 @@ public class EnemyShootable : ChronosMonoBehaviour
             {
                 Vector3 projectileVector = new Vector3(transform.position.x + Mathf.Cos((angle * Mathf.PI) / 180) * 1f, transform.position.y + Mathf.Sin((angle * Mathf.PI) / 180) * 1f, 0);
                 Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized;
-                CreateBullet(projectileMoveDirection);
+                CreateBullet(projectileMoveDirection, _shootPosition.position);
                 angle += angleStep;
             }
             _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
@@ -102,11 +103,55 @@ public class EnemyShootable : ChronosMonoBehaviour
                 // Create vectors.
                 Vector3 projectileVector = new Vector3(projectileDirXPosition, projectileDirYPosition, 0);
                 Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized;
-                CreateBullet(projectileMoveDirection);
+                CreateBullet(projectileMoveDirection, _shootPosition.position);
 
                 angle += angleStep;
             }
             _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
+        }
+    }
+
+    public void SinCosShoot()
+    {
+        if (ChronosTime.time >= _nextAttackTime)
+        {
+            _enemy.ShotCount++;
+            StartCoroutine(SinCosFire());
+            _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
+        }
+    }
+
+    private IEnumerator SinCosFire()
+    {
+        float angleStep = 360f / _enemy.Weapon.ProjectileCount;
+        float angle = 0f;
+
+        for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
+        {
+            // Direction calculations.
+            float projectileDirXPosition = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180) * 1f;
+            float projectileDirYPosition = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180) * 1f;
+
+            // Create vectors.
+            Vector3 projectileVector = new Vector3(projectileDirXPosition, projectileDirYPosition, 0f);
+            Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized;
+            CreateBullet(projectileMoveDirection, _shootPosition.position);
+            angle += angleStep;
+            yield return ChronosTime.WaitForSeconds(_enemy.Weapon.ProjectileFireRate);
+        }
+        
+    }
+
+    public void GroupShoot()
+    {
+        if (ChronosTime.time >= _nextAttackTime)
+        {
+            _enemy.ShotCount++;
+            Vector2 direction = GetDirection();
+            GameObject groupProjectileObj = MF_AutoPool.Spawn(_enemy.GroupProjectile, _shootPosition.position, Quaternion.identity);
+            groupProjectileObj.GetComponent<EnemyGroupProjectile>().OnSpawned(_shootPosition.position, direction.normalized, _enemy.Weapon);
+            _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
+            
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons/New Weapon", order = 0)]
+[CreateAssetMenu(fileName = "New Weapon", order = 1)]
 public class Weapon : ScriptableObject
 {
     // Настройки оружия
@@ -16,7 +16,8 @@ public class Weapon : ScriptableObject
         Single,
         Burst,
         Shotgun,
-        Radial
+        Radial,
+        SinCos
     }
     public TypeEnum Type;
 

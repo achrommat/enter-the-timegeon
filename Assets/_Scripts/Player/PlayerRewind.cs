@@ -10,7 +10,7 @@ public class PlayerRewind : ChronosMonoBehaviour
     private float _nextRewindTime;
     [SerializeField] private float _rewindCooldown = 5f;
     [SerializeField] private float _rewindCapacity;
-    private float _currentCapacity;
+    [SerializeField] private float _currentCapacity;
     private float _capacityTimer;
     private float _tick = 1f;
 
@@ -31,7 +31,7 @@ public class PlayerRewind : ChronosMonoBehaviour
 
     private void Rewind()
     {
-        if (Input.GetKey(KeyCode.E) && _currentCapacity > 0 && ChronosTime.time >= _nextRewindTime)
+        if (Input.GetKey(KeyCode.E) && _currentCapacity >= 0 && ChronosTime.time >= _nextRewindTime)
         {
             if (_player.State != PlayerState.REWIND)
             {
@@ -39,11 +39,17 @@ public class PlayerRewind : ChronosMonoBehaviour
                 {
                     return;
                 }
+                _currentCapacity = _rewindCapacity;
                 _player.Stats.TakeShard();
+                _capacityTimer = ChronosTime.unscaledTime + _tick;
             }
             DecreaseCapacity();
+
+
             ChangeTimeScale("Player", -1f);
             ChangeTimeScale("Root", 0.2f);
+
+
             _player.State = PlayerState.REWIND;
         }
 
@@ -55,10 +61,6 @@ public class PlayerRewind : ChronosMonoBehaviour
 
     private void DecreaseCapacity()
     {
-        if (_player.State != PlayerState.REWIND)
-        {
-            _capacityTimer = ChronosTime.unscaledTime + _tick;
-        }
         if (ChronosTime.unscaledTime >= _capacityTimer)
         {
             _currentCapacity--;
@@ -71,10 +73,10 @@ public class PlayerRewind : ChronosMonoBehaviour
         if (_player.State == PlayerState.REWIND)
         {
             _player.State = PlayerState.UNDER_CONTROL;
+
             ChangeTimeScale("Player", 1f);
             ChangeTimeScale("Root", 1f);
             HealIfCan();
-            _currentCapacity = _rewindCapacity;
             _nextRewindTime = ChronosTime.time + _rewindCooldown;
         }
     }
@@ -92,6 +94,6 @@ public class PlayerRewind : ChronosMonoBehaviour
     private void ChangeTimeScale(string clockName, float timeScale)
     {
         GlobalClock clock = Timekeeper.instance.Clock(clockName);
-        clock.localTimeScale = timeScale;
+        clock.localTimeScale = timeScale;        
     }
 }

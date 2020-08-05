@@ -22,9 +22,9 @@ public class CameraFollowCrosshair : MonoBehaviour
 	}
 
     private void FixedUpdate()
-	{		
-		_mousePos = CaptureMousePos();
+	{
 		UpdateCrosshairPos();
+		_mousePos = CaptureMousePos();
 		_target = UpdateTargetPos();
 		UpdateCameraPosition();
 	}

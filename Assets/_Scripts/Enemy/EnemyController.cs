@@ -19,6 +19,8 @@ public class EnemyController : ChronosMonoBehaviour
     [SerializeField] private float _attackDistance = 10f;
     private PlayerController _player;
     protected bool _isDead = false;
+    public GameObject GroupProjectile;
+    public int ShotCount = 0;
 
     [Header("Patrol")]
     [SerializeField] private float _xBoundary = 28;
@@ -41,8 +43,11 @@ public class EnemyController : ChronosMonoBehaviour
         _isDead = false;
         _originWaitTime = _waitTime;
         _player = GameManager.Instance.Player;
-        Path.DestinationSetter.target = _player.transform;
-        Path.canMove = true;        
+        if (Path)
+        {
+            Path.DestinationSetter.target = _player.transform;
+            Path.canMove = true;
+        }
     }
 
     private void GetPatrolPoints()
@@ -83,7 +88,11 @@ public class EnemyController : ChronosMonoBehaviour
     {
         if (!_isDead)
         {
-            Path.canMove = false;
+            if (Path)
+            {
+                Path.canMove = false;
+            }
+            
             DropLoot.Drop();
             MF_AutoPool.Despawn(gameObject);
             _isDead = true;
