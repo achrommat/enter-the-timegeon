@@ -179,6 +179,8 @@ MonoBehaviour:
   Path: {fileID: 7396171545467470113}
   DropLoot: {fileID: 3541596562123459933}
   _attackDistance: 10
+  GroupProjectile: {fileID: 0}
+  ShotCount: 0
   _xBoundary: 6
   _waitTime: 0.5
 --- !u!114 &8847428170623526980
@@ -333,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shardPrefab: {fileID: 8072577280900180167, guid: 7e716a2bc1699bb49a430064e9431bff, type: 3}
-  _probability: 0.3
+  _probability: 0.5
 --- !u!1 &7396171547582208344
 GameObject:
   m_ObjectHideFlags: 0

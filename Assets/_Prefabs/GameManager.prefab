@@ -152,6 +152,8 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   Clip: {fileID: 0}
   Audio: {fileID: 0}
+  PortalManager: {fileID: 0}
+  Crosshair: {fileID: 0}
   TimeToRestart: 5
 --- !u!114 &-2299690906438140551
 MonoBehaviour:

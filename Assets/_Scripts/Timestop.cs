@@ -18,7 +18,7 @@ public class Timestop : ChronosMonoBehaviour
 
     private void Despawn()
     {
-        foreach(EnemyController enemy in _enemies)
+        /*foreach(EnemyController enemy in _enemies)
         {
             enemy.Stats.Damage(_playerBullets.Count);
         }
@@ -26,7 +26,7 @@ public class Timestop : ChronosMonoBehaviour
         foreach (PlayerProjectile projectile in _playerBullets)
         {
             projectile.Despawn();
-        }
+        }*/
 
         MF_AutoPool.Despawn(gameObject);
     }
@@ -38,7 +38,7 @@ public class Timestop : ChronosMonoBehaviour
             _enemies.Add(collision.GetComponent<EnemyController>());
         }
 
-        if (collision.CompareTag("PlayerProjectile"))
+        /*if (collision.CompareTag("PlayerProjectile"))
         {
             PlayerProjectile projectile = collision.GetComponent<PlayerProjectile>();
             projectile.ChronosTime.rigidbody2D.velocity = new Vector2();
@@ -49,6 +49,6 @@ public class Timestop : ChronosMonoBehaviour
                 _playerBullets.Last.Value.Despawn();
                 _playerBullets.RemoveLast();
             }
-        }
+        }*/
     }
 }

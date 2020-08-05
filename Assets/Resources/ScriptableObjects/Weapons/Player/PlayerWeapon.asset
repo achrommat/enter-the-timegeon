@@ -16,9 +16,12 @@ MonoBehaviour:
   Recoil: 5
   ProjectileSpeed: 10
   ProjectileLifetime: 2
-  IsBurst: 0
-  IsRadial: 0
+  MaxAmmo: 10
+  CurrentAmmo: 10
+  Type: 0
   AttackDelay: 0.3
+  ProjectileCount: 3
+  ProjectileFireRate: 1
   Projectile: {fileID: 1049465036424695676, guid: 57140ba7f4d853c4287c0a1208fb0bdc, type: 3}
   AudioSource: {fileID: 0}
   MuzzleFlash: {fileID: 0}

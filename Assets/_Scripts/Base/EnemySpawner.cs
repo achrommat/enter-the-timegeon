@@ -85,7 +85,8 @@ public class EnemySpawner : MonoBehaviour
         {
             _nextWave = 0;
             IsOver = true;
-            _onChangeDoorState.Invoke();
+            GameManager.Instance.PortalManager.HandlePortalActivation(true);
+            //_onChangeDoorState.Invoke();
             Debug.Log("All Waves Complete Looping...");
         }
         else

@@ -10,6 +10,8 @@ public class Weapon : ScriptableObject
     public float Recoil = 1f;
     public float ProjectileSpeed = 1f;
     public float ProjectileLifetime = 1f;
+    public int MaxAmmo = 6;
+    public int CurrentAmmo;
     
     public enum TypeEnum
     {
@@ -30,4 +32,14 @@ public class Weapon : ScriptableObject
     public GameObject Projectile;
     public AudioSource AudioSource;
     public GameObject MuzzleFlash;
+
+    public bool HasAmmo()
+    {
+        return CurrentAmmo > 0;
+    }
+
+    private void OnEnable()
+    {
+        CurrentAmmo = MaxAmmo;
+    }
 }

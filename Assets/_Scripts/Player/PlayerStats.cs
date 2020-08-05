@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerStats : Stats
 {
     [SerializeField] private PlayerController _player;
-    
+    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private ResourcesUI _resources;
+
     [Header("HP Snapshots")]
     public LinkedList<float> HPSnapshots;
     [SerializeField] private float _maxSnapshotCount = 5f;
@@ -27,6 +29,15 @@ public class PlayerStats : Stats
     private void Update()
     {
         CaptureSnapshot();
+        UpdateUIElements();
+    }
+
+    private void UpdateUIElements()
+    {
+        _healthBar.Bar.localScale = new Vector3(CurrentHealth / MaxHealth, _healthBar.Bar.localScale.y, _healthBar.Bar.localScale.z);
+        _healthBar.Text.text = CurrentHealth + "/" + MaxHealth;
+        _resources.TapeText.text = CurrentShards.ToString();
+        _resources.AmmoText.text = _player.Weapon.CurrentAmmo.ToString();
     }
 
     private void CaptureSnapshot()

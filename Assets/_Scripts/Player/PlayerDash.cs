@@ -1,13 +1,16 @@
 ﻿using Chronos;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class PlayerDash : ChronosMonoBehaviour
 {
+    [Header("Links")]
     [SerializeField] private PlayerController _player;
+    [SerializeField] private AbilityUI _abilityUI;
 
+    [Header("Dash settings")]
     public int MaxDashCount = 3;
     public int CurrentDashCount;
-
     [SerializeField] private float _dashForce = 5;
     private float _nextDashTime;
     [SerializeField] private float _dashCooldown = 1;
@@ -23,8 +26,8 @@ public class PlayerDash : ChronosMonoBehaviour
     [SerializeField] private float _slowTimeScale = 0.5f;
     [SerializeField] private float _playerSlowTimeScale = 0.6f;
     [SerializeField] private float _slowTimeDuration = 0.5f;
-    private float _nextSlowTime;
     [SerializeField] private float _slowTimeCooldown = 5f;
+    private float _slowtimeCooldownTimer;
     private bool _canSlowTime = false;
 
     [Header("After Image")]
@@ -60,20 +63,41 @@ public class PlayerDash : ChronosMonoBehaviour
             Initialize();
             SlowTime();
         }
+
+        if (_slowtimeCooldownTimer > 0)
+        {
+            _slowtimeCooldownTimer -= ChronosTime.deltaTime;
+            _abilityUI.CooldownTimer.text = Mathf.Floor(_slowtimeCooldownTimer).ToString();
+        }
+        else
+        {
+            _slowtimeCooldownTimer = 0;
+            _abilityUI.Cooldown.gameObject.SetActive(false);
+        }
+
     }
 
     private void SlowTime()
     {
-        if (ChronosTime.unscaledTime >= _holdTimer && _canSlowTime && ChronosTime.time >= _nextSlowTime)
+        if (!_player.Stats.HasShards())
         {
+            return;
+        }
+
+        if (ChronosTime.unscaledTime >= _holdTimer && _canSlowTime && _slowtimeCooldownTimer == 0)
+        {
+            _player.Stats.TakeShard();
+
             GlobalClock globalClock = Timekeeper.instance.Clock("Root");
             globalClock.LerpTimeScale(_slowTimeScale, 0.5f);
             GlobalClock playerClock = Timekeeper.instance.Clock("Player");
             playerClock.LerpTimeScale(_playerSlowTimeScale, 0.5f);
             _canSlowTime = false;
             ChronosTime.Plan(_slowTimeDuration, delegate { ResetTimeScale(); });
-            _nextSlowTime = ChronosTime.time + _nextSlowTime;
             _holdTimer = ChronosTime.unscaledTime + _timeToHold;
+            _slowtimeCooldownTimer = _slowTimeCooldown;
+
+            _abilityUI.Cooldown.gameObject.SetActive(true);
         }
     }
 
@@ -97,6 +121,8 @@ public class PlayerDash : ChronosMonoBehaviour
     private void StartDash()
     {
         CurrentDashCount--;
+        GameManager.Instance.Crosshair.UpdateSprite(CurrentDashCount);
+
         _canSlowTime = true;
         _holdTimer = ChronosTime.unscaledTime + _timeToHold;
         _previousPlayerState = _player.State;
@@ -148,6 +174,7 @@ public class PlayerDash : ChronosMonoBehaviour
         if (ChronosTime.time > _dashRestorationTimer && _canRestoreDash)
         {
             CurrentDashCount++;
+            GameManager.Instance.Crosshair.UpdateSprite(CurrentDashCount);
             _canRestoreDash = false;
         }
     }

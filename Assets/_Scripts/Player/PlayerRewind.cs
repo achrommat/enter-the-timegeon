@@ -6,11 +6,15 @@ using UnityEngine;
 public class PlayerRewind : ChronosMonoBehaviour
 {
     [SerializeField] private PlayerController _player;
-    [SerializeField] private float _healAmount = 2f;
-    private float _nextRewindTime;
+    [SerializeField] private AbilityUI _abilityUI;
+    [SerializeField] private HealthBar _rewindBar;
+
+    [SerializeField] private float _healAmount = 2f;    
     [SerializeField] private float _rewindCooldown = 5f;
+    private float _rewindCooldownTimer;
     [SerializeField] private float _rewindCapacity;
     [SerializeField] private float _currentCapacity;
+    private float _currentCapacityUI;
     private float _capacityTimer;
     private float _tick = 1f;
 
@@ -26,12 +30,25 @@ public class PlayerRewind : ChronosMonoBehaviour
             return;
         }
 
+        if (_rewindCooldownTimer > 0)
+        {
+            _rewindCooldownTimer -= ChronosTime.deltaTime;
+            _abilityUI.CooldownTimer.text = Mathf.Floor(_rewindCooldownTimer).ToString();
+        }
+        else
+        {
+            _rewindCooldownTimer = 0;
+            _abilityUI.Cooldown.gameObject.SetActive(false);
+        }
+
         Rewind();
+
+        _rewindBar.Bar.localScale = new Vector3(_currentCapacityUI / _rewindCapacity, _rewindBar.Bar.localScale.y, _rewindBar.Bar.localScale.z);
     }   
 
     private void Rewind()
     {
-        if (Input.GetKey(KeyCode.E) && _currentCapacity >= 0 && ChronosTime.time >= _nextRewindTime)
+        if (Input.GetKey(KeyCode.E) && _currentCapacity >= 0 && _rewindCooldownTimer == 0)
         {
             if (_player.State != PlayerState.REWIND)
             {
@@ -40,15 +57,15 @@ public class PlayerRewind : ChronosMonoBehaviour
                     return;
                 }
                 _currentCapacity = _rewindCapacity;
+                _currentCapacityUI = _currentCapacity;
                 _player.Stats.TakeShard();
                 _capacityTimer = ChronosTime.unscaledTime + _tick;
+                _rewindBar.gameObject.SetActive(true);
             }
             DecreaseCapacity();
 
-
             ChangeTimeScale("Player", -1f);
             ChangeTimeScale("Root", 0.2f);
-
 
             _player.State = PlayerState.REWIND;
         }
@@ -61,6 +78,8 @@ public class PlayerRewind : ChronosMonoBehaviour
 
     private void DecreaseCapacity()
     {
+        _currentCapacityUI += ChronosTime.deltaTime;
+
         if (ChronosTime.unscaledTime >= _capacityTimer)
         {
             _currentCapacity--;
@@ -77,7 +96,10 @@ public class PlayerRewind : ChronosMonoBehaviour
             ChangeTimeScale("Player", 1f);
             ChangeTimeScale("Root", 1f);
             HealIfCan();
-            _nextRewindTime = ChronosTime.time + _rewindCooldown;
+
+            _rewindCooldownTimer = _rewindCooldown;
+            _abilityUI.Cooldown.gameObject.SetActive(true);
+            _rewindBar.gameObject.SetActive(false);
         }
     }
 

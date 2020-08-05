@@ -13,7 +13,7 @@ public class BulletShell : ChronosMonoBehaviour
     {
         if (_isEjected)
         {
-            transform.rotation = Quaternion.AngleAxis(_rotationForce, Vector3.forward) * transform.rotation;
+            transform.rotation = Quaternion.AngleAxis(Random.Range(_rotationForce, _rotationForce * 2), Vector3.forward) * transform.rotation;
         }
     }
 

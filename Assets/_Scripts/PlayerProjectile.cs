@@ -19,7 +19,7 @@ public class PlayerProjectile : Projectile
                 MF_AutoPool.Despawn(gameObject);
             }
         }
-        if (collision.CompareTag("Wall"))
+        if (collision.CompareTag("Wall") || collision.CompareTag("BossShield"))
         {
             //GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
             //exp.GetComponent<Explosion>().OnSpawned();

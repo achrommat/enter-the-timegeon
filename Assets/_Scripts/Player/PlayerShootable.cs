@@ -28,8 +28,9 @@ public class PlayerShootable : ChronosMonoBehaviour
 
     public void Shoot()
     {
-        if (ChronosTime.unscaledTime >= _nextAttackTime)
+        if (ChronosTime.unscaledTime >= _nextAttackTime && _player.Weapon.HasAmmo())
         {
+            _player.Weapon.CurrentAmmo--;
             CreateBullet(ShootPosition);
             CameraShaker.Instance.ShakeOnce(_shakeMagnitude, _shakeRoughness, _shakeFadeInTime, _shakeFadeOutTime);
             _nextAttackTime = ChronosTime.unscaledTime + _player.Weapon.AttackDelay;

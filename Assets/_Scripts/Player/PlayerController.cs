@@ -1,7 +1,7 @@
 ﻿using Chronos;
 using MoreMountains.Feedbacks;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public enum PlayerState { UNDER_CONTROL, DASH, REWIND };
 
@@ -80,6 +80,8 @@ public class PlayerController : ChronosMonoBehaviour
     }
     private Vector3 _mousePos, _mouseVector;
 
+    private bool _isReloading = false;
+
     private void Start()
     {
         GetMouseInput();
@@ -98,14 +100,25 @@ public class PlayerController : ChronosMonoBehaviour
     private void Update()
     {
         GetInput();
-        FlipSprite();        
+
+        if (!Stats.IsAlive())
+        {
+            Death();
+            return;
+        }
+        FlipSprite();
+        if ((!Weapon.HasAmmo() || (Input.GetKeyDown(KeyCode.R) && Weapon.CurrentAmmo < Weapon.MaxAmmo)) && !_isReloading)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+        Shoot();              
     }
 
     private void FixedUpdate()
     {
         if (!Stats.IsAlive())
         {
-            Death();
             return;
         }
 
@@ -114,10 +127,16 @@ public class PlayerController : ChronosMonoBehaviour
             return;
         }
 
-        //HealthBar.Bar.localScale = new Vector3(Stats.CurrentHealth / Stats.MaxHealth, HealthBar.Bar.localScale.y, HealthBar.Bar.localScale.z);
-
         Move();
-        Shoot();
+    }
+
+    private IEnumerator Reload()
+    {
+        _isReloading = true;
+        Weapon.CurrentAmmo = 0;
+        yield return new WaitForSeconds(2f);
+        Weapon.CurrentAmmo = Weapon.MaxAmmo;
+        _isReloading = false;
     }
 
     private void GetInput()
@@ -136,8 +155,8 @@ public class PlayerController : ChronosMonoBehaviour
 
     private void FlipSprite()
     {
-        float gunAngle = -1 * Mathf.Atan2(_mouseVector.y, _mouseVector.x) * Mathf.Rad2Deg;
-        if ((-90f < gunAngle) && (gunAngle < 90f))
+        float angle = -1 * Mathf.Atan2(_mouseVector.y, _mouseVector.x) * Mathf.Rad2Deg;
+        if ((-90f < angle) && (angle < 90f))
         {
             Sprite.flipX = false;
         }

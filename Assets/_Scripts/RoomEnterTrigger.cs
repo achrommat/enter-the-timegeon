@@ -12,7 +12,8 @@ public class RoomEnterTrigger : ChronosMonoBehaviour
     {
         if (collision.CompareTag("Player") && !_spawner.CanSpawn && !_spawner.IsOver)
         {
-            _onChangeDoorState.Invoke();
+            GameManager.Instance.PortalManager.HandlePortalActivation(false);
+            //_onChangeDoorState.Invoke();
             _spawner.CanSpawn = true;
         }
     }

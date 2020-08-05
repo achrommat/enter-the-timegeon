@@ -1,5 +1,4 @@
-﻿using GridPathfindingSystem;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Canvas Canvas;
     public GameObject Clip;
     public AudioSource Audio;
+    public PortalManager PortalManager;
+    public Crosshair Crosshair;
 
     public float TimeToRestart = 5f;
     private AudioSource[] allAudioSources;

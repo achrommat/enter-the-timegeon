@@ -124,8 +124,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.49583054
-      value: 0.99056625
+      time: 0.50416183
+      value: 0.9481125
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.9958191
-      value: 0.9292396
+      time: 1
+      value: 0.49999458
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeTime: 5
   _enemies: []
-  _playerBullets: []
+  _maxBulletCount: 5
 --- !u!114 &-2149996567251819303
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollowCrosshair : MonoBehaviour
+public class CameraFollowCrosshair : ChronosMonoBehaviour
 {
 	private Transform _player;
 	private Vector3 _target, _refVel;
@@ -67,7 +67,7 @@ public class CameraFollowCrosshair : MonoBehaviour
 
 		//transform.position = Vector3.Lerp(transform.position, _target, _smoothTime * Time.fixedDeltaTime);
 
-		tempPos = Vector3.SmoothDamp(transform.position, _target, ref _refVel, _smoothTime);
+		tempPos = Vector3.SmoothDamp(transform.position, _target, ref _refVel, _smoothTime, Mathf.Infinity, ChronosTime.fixedDeltaTime);
 		transform.position = tempPos; 
 	}
 }
