@@ -16,11 +16,11 @@ public class PlayerRotateWeapon : MonoBehaviour
     {
         float gunAngle = -1 * Mathf.Atan2(_player.MouseVector.y, _player.MouseVector.x) * Mathf.Rad2Deg;
         WeaponSprite.transform.rotation = Quaternion.AngleAxis(gunAngle, Vector3.back);
-        WeaponSprite.sortingOrder = _player.Sprite.sortingOrder - 1;
+        /*WeaponSprite.sortingOrder = _player.Sprite.sortingOrder - 1;
         if (gunAngle > 0)
         {
             WeaponSprite.sortingOrder = _player.Sprite.sortingOrder + 1;
-        }
+        }*/
 
         WeaponSprite.flipY = _player.Sprite.flipX;
     }

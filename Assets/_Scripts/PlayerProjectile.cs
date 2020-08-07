@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerProjectile : Projectile
 {
-    [SerializeField] private GameObject _explosion;
+    [SerializeField] private GameObject _hitFX;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,16 +13,20 @@ public class PlayerProjectile : Projectile
         {
             if (stats.IsAlive())
             {
-                stats.Damage(Damage);
-                //GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
-                //exp.GetComponent<Explosion>().OnSpawned();
+                Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+
+                GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
+                hit.GetComponent<FX>().OnSpawned();
                 MF_AutoPool.Despawn(gameObject);
+                stats.Damage(Damage);
             }
         }
-        if (collision.CompareTag("Wall") || collision.CompareTag("BossShield"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("BossShield"))
         {
-            //GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
-            //exp.GetComponent<Explosion>().OnSpawned();
+            Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+
+            GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
+            hit.GetComponent<FX>().OnSpawned();
             MF_AutoPool.Despawn(gameObject);
         }
     }

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public PortalManager PortalManager;
     public Crosshair Crosshair;
 
+    public GameObject DeathX;
+
     public float TimeToRestart = 5f;
     private AudioSource[] allAudioSources;
 

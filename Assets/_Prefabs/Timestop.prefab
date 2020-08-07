@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7104496141738958683}
   - component: {fileID: 6186038745821526673}
   - component: {fileID: -2149996567251819303}
+  - component: {fileID: 4001433535211437352}
   m_Layer: 8
   m_Name: Timestop
   m_TagString: Untagged
@@ -76,15 +77,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 22
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2457309816289959294, guid: b96d4ac49fdd6b74d8a3520d09b10471, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 6, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &7420605565922154167
@@ -117,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _localTimeScale: 0
   _paused: 0
-  _parentKey: 
+  _parentKey: Root
   _parentBlend: 0
   _mode: 1
   _curve:
@@ -194,3 +195,22 @@ MonoBehaviour:
   delay: 0
   poolScript: {fileID: 0}
   timeSpawned: 0
+--- !u!95 &4001433535211437352
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420605565922154121}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bfe53682113e4bc4caaaa95716115908, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -15,7 +15,7 @@ public class PlayerShield : ChronosMonoBehaviour
             return;
         }
 
-        if (_shieldCooldownTimer > 0)
+        if (_shieldCooldownTimer > 1)
         {
             _shieldCooldownTimer -= ChronosTime.deltaTime;
             _abilityUI.CooldownTimer.text = Mathf.Floor(_shieldCooldownTimer).ToString();

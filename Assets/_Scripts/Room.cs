@@ -15,10 +15,10 @@ public class Room : MonoBehaviour
             door.ResetState();
         }
 
-        foreach (Transform point in _explosiveBareelPoint)
+        /*foreach (Transform point in _explosiveBareelPoint)
         {
             MF_AutoPool.Spawn(_explosiveBarrelPrefab, point.position, Quaternion.identity);
-        }
+        }*/
     }
 
     public void ChangeDoorStates()

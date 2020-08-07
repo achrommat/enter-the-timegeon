@@ -1,9 +1,7 @@
-﻿using Chronos;
-using MoreMountains.Feedbacks;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public enum PlayerState { UNDER_CONTROL, DASH, REWIND };
+public enum PlayerState { UNDER_CONTROL, DASH, REWIND, SHIELD };
 
 public class PlayerController : ChronosMonoBehaviour
 {
@@ -28,8 +26,7 @@ public class PlayerController : ChronosMonoBehaviour
     public PlayerStats Stats;
     public Animator Animator;
     public SpriteRenderer Sprite;
-    public Collider2D Collider;
-    public HealthBar HealthBar;
+    public Collider2D Collider;    
 
     public float HorizontalMove
     {
@@ -80,20 +77,26 @@ public class PlayerController : ChronosMonoBehaviour
     }
     private Vector3 _mousePos, _mouseVector;
 
+    [Header("Reload")]
     private bool _isReloading = false;
+    [SerializeField] private float _reloadTime = 1f;
+    public Animator WeaponAnim;
 
     private void Start()
     {
         GetMouseInput();
         StartPosition = transform.position;
+        WeaponAnim.gameObject.SetActive(true);
     }
 
-    private void Death()
+    private void DeathHandler()
     {
         if (!IsDead)
         {
             IsDead = true;
             GameManager.Instance.PlayerDeath();
+            WeaponAnim.gameObject.SetActive(false);
+            Animator.SetTrigger("Death");
         }
     }
 
@@ -103,10 +106,15 @@ public class PlayerController : ChronosMonoBehaviour
 
         if (!Stats.IsAlive())
         {
-            Death();
+            DeathHandler();
             return;
         }
         FlipSprite();
+
+        if (_state != PlayerState.UNDER_CONTROL)
+        {
+            return;
+        }
         if ((!Weapon.HasAmmo() || (Input.GetKeyDown(KeyCode.R) && Weapon.CurrentAmmo < Weapon.MaxAmmo)) && !_isReloading)
         {
             StartCoroutine(Reload());
@@ -133,8 +141,15 @@ public class PlayerController : ChronosMonoBehaviour
     private IEnumerator Reload()
     {
         _isReloading = true;
+        WeaponAnim.SetTrigger("Reload");
+
+        for (int i = 0; i < Weapon.CurrentAmmo; i++)
+        {
+            Shootable.CreateBulletShell();
+        }
         Weapon.CurrentAmmo = 0;
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(_reloadTime);
         Weapon.CurrentAmmo = Weapon.MaxAmmo;
         _isReloading = false;
     }
@@ -148,9 +163,9 @@ public class PlayerController : ChronosMonoBehaviour
 
     private void Move()
     {
-        float horizontalSpeed = _horizontalMove * Stats.Speed;
-        float verticalSpeed = _verticalMove * Stats.Speed;
-        ChronosTime.rigidbody2D.velocity = new Vector2(horizontalSpeed, verticalSpeed);
+        //float horizontalSpeed = _horizontalMove * Stats.Speed;
+        //float verticalSpeed = _verticalMove * Stats.Speed;
+        ChronosTime.rigidbody2D.velocity = new Vector2(_horizontalMove, _verticalMove) * Stats.Speed;
     }
 
     private void FlipSprite()
@@ -184,5 +199,18 @@ public class PlayerController : ChronosMonoBehaviour
     public void Knockback(Vector2 direction, float force)
     {
         ChronosTime.rigidbody2D.AddForce(direction * force, ForceMode2D.Force);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            if (State == PlayerState.DASH || State == PlayerState.REWIND || State == PlayerState.SHIELD || Stats.IsDamaged || !Stats.IsAlive())
+            {
+                return;
+            }
+            Knockback(Vector2.right, 1000f);
+            Stats.Damage(1f);
+        }
     }
 }

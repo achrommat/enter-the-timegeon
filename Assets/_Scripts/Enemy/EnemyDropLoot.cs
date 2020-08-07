@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class EnemyDropLoot : MonoBehaviour
 {
-    [SerializeField] private GameObject _shardPrefab;
-    [SerializeField] private float _probability = 0.25f;
+    [SerializeField] private PickupObjectBase[] _dropItems;
 
     public void Drop()
     {
-        float random = Random.Range(0f, 1f);
-        if (random <= _probability)
+        foreach (var item in _dropItems)
         {
-            GameObject shardObj = MF_AutoPool.Spawn(_shardPrefab, transform.position, Quaternion.identity);
-            shardObj.GetComponent<Shard>().Drop();
+            float random = Random.Range(0, _dropItems.Length);
+
+            if (random <= item.DropChance)
+            {
+                GameObject shardObj = MF_AutoPool.Spawn(item.gameObject, transform.position, Quaternion.identity);
+                shardObj.GetComponent<PickupObjectBase>().Drop();
+            }
         }
     }
 }

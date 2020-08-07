@@ -14,6 +14,7 @@ public class EnemyController : ChronosMonoBehaviour
     public SpriteRenderer Sprite;
     public ChronosAIPath Path;
     public EnemyDropLoot DropLoot;
+    public Animator Animator;
 
     [Header("Behaviour")]
     [SerializeField] private float _attackDistance = 10f;
@@ -21,6 +22,7 @@ public class EnemyController : ChronosMonoBehaviour
     protected bool _isDead = false;
     public GameObject GroupProjectile;
     public int ShotCount = 0;
+    public bool IsSpawned = false;
 
     [Header("Patrol")]
     [SerializeField] private float _xBoundary = 28;
@@ -40,14 +42,27 @@ public class EnemyController : ChronosMonoBehaviour
 
     public virtual void OnSpawned()
     {
+        if (_isDead)
+        {
+            Animator.SetTrigger("Death");
+        }
+
         _isDead = false;
         _originWaitTime = _waitTime;
         _player = GameManager.Instance.Player;
         if (Path)
         {
             Path.DestinationSetter.target = _player.transform;
-            Path.canMove = true;
+            Path.canMove = false;
         }
+        ChronosTime.rewindable = true;
+        ChronosTime.Plan(1f, delegate () { AfterSpawned(); });
+    }
+
+    private void AfterSpawned()
+    {
+        IsSpawned = true;
+        Path.canMove = true;
     }
 
     private void GetPatrolPoints()
@@ -75,13 +90,33 @@ public class EnemyController : ChronosMonoBehaviour
 
     protected virtual void Update()
     {
+        Animator.SetFloat("Speed", Path.velocity.magnitude);
+
         if (!Stats.IsAlive())
         {
             DeathHandler();
             return;
         }
-
+        FlipSprite();
         Shoot();
+    }
+
+    private void FlipSprite()
+    {
+        if (!Path)
+        {
+            return;
+        }
+
+        float speed = Path.velocity.x;
+        if (speed < 0)
+        {
+            Sprite.flipX = true;
+        }
+        else if (speed > 0)
+        {
+            Sprite.flipX = false;
+        }
     }
 
     protected virtual void DeathHandler()
@@ -92,9 +127,15 @@ public class EnemyController : ChronosMonoBehaviour
             {
                 Path.canMove = false;
             }
-            
+            ChronosTime.rewindable = false;
+            GameObject x = MF_AutoPool.Spawn(GameManager.Instance.DeathX, Stats.DamageFeedback.transform.position, Quaternion.identity);
+            x.GetComponent<FX>().OnSpawned();
+            Animator.SetTrigger("Death");
+            IsSpawned = false;
             DropLoot.Drop();
-            MF_AutoPool.Despawn(gameObject);
+
+            ChronosTime.Plan(1f, delegate () { MF_AutoPool.Despawn(gameObject); });
+            //MF_AutoPool.Despawn(gameObject);
             _isDead = true;
         }
     }
@@ -121,5 +162,10 @@ public class EnemyController : ChronosMonoBehaviour
                 Shootable.Shoot();
                 break;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, _attackDistance);
     }
 }

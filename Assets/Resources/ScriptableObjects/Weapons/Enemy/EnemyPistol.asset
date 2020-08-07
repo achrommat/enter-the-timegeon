@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: EnemyPistol
   m_EditorClassIdentifier: 
   Damage: 0
-  Recoil: 4
+  Recoil: 0
   ProjectileSpeed: 5
   ProjectileLifetime: 3
+  MaxAmmo: 6
+  CurrentAmmo: 6
   Type: 0
   AttackDelay: 1
   ProjectileCount: 3

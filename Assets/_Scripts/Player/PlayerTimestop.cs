@@ -10,7 +10,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
 
     private void Update()
     {
-        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL)
+        if (!_player.Stats.IsAlive())
         {
             return;
         }
@@ -35,7 +35,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _timestopCooldownTimer == 0 && _player.State == PlayerState.UNDER_CONTROL)
         {
             _player.Stats.TakeShard();
             Vector2 pos = new Vector2(_player.MousePos.x, _player.MousePos.y);

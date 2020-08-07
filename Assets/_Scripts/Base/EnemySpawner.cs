@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Chronos;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : ChronosMonoBehaviour
 {
     public enum SpawnState { SPAWNING, WAITING, COUNTING };
     [System.Serializable]
@@ -24,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
 
     public bool CanSpawn, IsOver = false;
     [SerializeField] private UnityEvent _onChangeDoorState;
+
+    [SerializeField] private GameObject _spawnFX;
 
     void Start()
     {
@@ -73,7 +76,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            _waveCountdown -= Time.deltaTime;
+            _waveCountdown -= ChronosTime.deltaTime;
         }
     }
 
@@ -98,7 +101,7 @@ public class EnemySpawner : MonoBehaviour
 
     bool EnemyIsAlive()
     {
-        _searchCountdown -= Time.deltaTime;
+        _searchCountdown -= ChronosTime.deltaTime;
         if (_searchCountdown <= 0f)
         {
             _searchCountdown = 1f;
@@ -116,14 +119,27 @@ public class EnemySpawner : MonoBehaviour
         //Spawn
         for (int i = 0; i < _wave.Count; i++)
         {
-            SpawnEnemy(_wave.Enemies);
-            yield return new WaitForSeconds(1f / _wave.Rate);
+            ChronosTime.Do
+            (
+                true,
+                delegate ()
+                {
+                    GameObject enemy = SpawnEnemy(_wave.Enemies);
+                    return enemy;
+                },
+                delegate (GameObject enemy)
+                {
+                    MF_AutoPool.Despawn(enemy);
+                }
+            );
+            
+            yield return ChronosTime.WaitForSeconds(1f / _wave.Rate);
         }
         State = SpawnState.WAITING;
         yield break;
     }
 
-    void SpawnEnemy(Transform[] enemies)
+    private GameObject SpawnEnemy(Transform[] enemies)
     {
         if (SpawnPoints.Length == 0)
         {
@@ -134,5 +150,6 @@ public class EnemySpawner : MonoBehaviour
         int randomIndex = Random.Range(0, enemies.Length);
         GameObject go = MF_AutoPool.Spawn(enemies[randomIndex].gameObject, _sp.position, Quaternion.identity);
         go.GetComponent<EnemyController>().OnSpawned();
+        return go;
     }
 }

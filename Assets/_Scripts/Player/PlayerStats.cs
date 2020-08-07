@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MoreMountains.Feedbacks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,18 +19,33 @@ public class PlayerStats : Stats
     public float MaxShards = 5f;
     public float CurrentShards;
 
+    public bool IsDamaged = false;
+    private float _safetyDuration;
+    private float _safetyDurationTimer;
+
     public override void OnEnable()
     {
         base.OnEnable();
         HPSnapshots = new LinkedList<float>();
         _snapshotTimer = 0f;
         CurrentShards = MaxShards;
+        _safetyDuration = DamageFeedback.Feedbacks[0].GetComponent<MMFeedbackFlicker>().FlickerDuration * 2;
     }
 
     private void Update()
     {
         CaptureSnapshot();
         UpdateUIElements();
+
+        if (_safetyDurationTimer > 0 && IsDamaged)
+        {
+            _safetyDurationTimer -= ChronosTime.deltaTime;
+        }
+        else
+        {
+            IsDamaged = false;
+        }
+
     }
 
     private void UpdateUIElements()
@@ -61,11 +77,13 @@ public class PlayerStats : Stats
 
     public override void Damage(float amount)
     {
-        if (_player.State == PlayerState.DASH || _player.State == PlayerState.REWIND)
+        if (_player.State == PlayerState.DASH || _player.State == PlayerState.REWIND || _player.State == PlayerState.SHIELD || IsDamaged)
         {
             return;
         }
         base.Damage(amount);
+        _safetyDurationTimer = _safetyDuration;
+        IsDamaged = true;
     }
 
     public bool HasShards()

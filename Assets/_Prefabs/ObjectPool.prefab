@@ -51,6 +51,57 @@ MonoBehaviour:
     prefab: {fileID: 1049465036424695676, guid: 57140ba7f4d853c4287c0a1208fb0bdc, type: 3}
     printLogOnQuit: 0
   masterPool: []
+--- !u!1 &1562289082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1562289083}
+  - component: {fileID: 1562289084}
+  m_Layer: 0
+  m_Name: PlayerProjectileHitFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1562289083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562289082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1562289084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562289082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 50
+    emptyBehavior: 0
+    maxSize: 100
+    maxEmptyBehavior: 0
+    prefab: {fileID: 3980321706615406105, guid: 5f38836448cf77142982636d426260c7, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
 --- !u!1 &388071444400991527
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +197,10 @@ Transform:
   - {fileID: 8416619669223362203}
   - {fileID: 9117129560367731073}
   - {fileID: 6669010801321132013}
+  - {fileID: 3166117843955433496}
+  - {fileID: 7713401560760894464}
+  - {fileID: 1562289083}
+  - {fileID: 3324174255175817540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -368,6 +423,57 @@ MonoBehaviour:
     prefab: {fileID: 9127837140852683053, guid: b756e682a136cc4448f4ac0df072a301, type: 3}
     printLogOnQuit: 0
   masterPool: []
+--- !u!1 &3704807501936553990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3166117843955433496}
+  - component: {fileID: 2162454780321101740}
+  m_Layer: 0
+  m_Name: Medkit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3166117843955433496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3704807501936553990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2162454780321101740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3704807501936553990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 10
+    emptyBehavior: 0
+    maxSize: 20
+    maxEmptyBehavior: 0
+    prefab: {fileID: 4943086262894256530, guid: 0908f20a6043bb34d8c49bfc2333677c, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
 --- !u!1 &4553795550388866914
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +587,7 @@ GameObject:
   - component: {fileID: 9117129560367731073}
   - component: {fileID: 1833934484437383254}
   m_Layer: 0
-  m_Name: Shard
+  m_Name: Tape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,6 +676,57 @@ MonoBehaviour:
     maxSize: 40
     maxEmptyBehavior: 0
     prefab: {fileID: 6724031721868204399, guid: 6aea28fa8a3953d4e86f217a1d9f59a4, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
+--- !u!1 &6026504675497707661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3324174255175817540}
+  - component: {fileID: 3689019688585257175}
+  m_Layer: 0
+  m_Name: EnemyProjectileHitFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3324174255175817540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026504675497707661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3689019688585257175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6026504675497707661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 50
+    emptyBehavior: 0
+    maxSize: 100
+    maxEmptyBehavior: 0
+    prefab: {fileID: 6883748581530600719, guid: 9995ccb2154a96940b7236e6b5a5e5ec, type: 3}
     printLogOnQuit: 0
   masterPool: []
 --- !u!1 &6426387529573580741
@@ -825,6 +982,57 @@ MonoBehaviour:
     maxSize: 4
     maxEmptyBehavior: 0
     prefab: {fileID: 9134981737216655726, guid: 0e6dbebc5d4ae634b9e6cf0351f75020, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
+--- !u!1 &8556980306008793856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7713401560760894464}
+  - component: {fileID: 6136297582947518821}
+  m_Layer: 0
+  m_Name: Floppy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7713401560760894464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8556980306008793856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6136297582947518821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8556980306008793856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 2
+    emptyBehavior: 0
+    maxSize: 4
+    maxEmptyBehavior: 0
+    prefab: {fileID: 7924176931497043712, guid: ba4bf99265cd8a34aae79d1723a1c44d, type: 3}
     printLogOnQuit: 0
   masterPool: []
 --- !u!1 &8799523317201490297

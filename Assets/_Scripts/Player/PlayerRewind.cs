@@ -21,6 +21,8 @@ public class PlayerRewind : ChronosMonoBehaviour
     private void Start()
     {
         _currentCapacity = _rewindCapacity;
+        _rewindCooldownTimer = _rewindCooldown;
+        _abilityUI.Cooldown.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -30,7 +32,7 @@ public class PlayerRewind : ChronosMonoBehaviour
             return;
         }
 
-        if (_rewindCooldownTimer > 0)
+        if (_rewindCooldownTimer > 1)
         {
             _rewindCooldownTimer -= ChronosTime.deltaTime;
             _abilityUI.CooldownTimer.text = Mathf.Floor(_rewindCooldownTimer).ToString();
@@ -48,7 +50,7 @@ public class PlayerRewind : ChronosMonoBehaviour
 
     private void Rewind()
     {
-        if (Input.GetKey(KeyCode.E) && _currentCapacity >= 0 && _rewindCooldownTimer == 0)
+        if (Input.GetKey(KeyCode.E) && _currentCapacityUI >= 0 && _rewindCooldownTimer == 0)
         {
             if (_player.State != PlayerState.REWIND)
             {
@@ -62,15 +64,16 @@ public class PlayerRewind : ChronosMonoBehaviour
                 _capacityTimer = ChronosTime.unscaledTime + _tick;
                 _rewindBar.gameObject.SetActive(true);
             }
-            DecreaseCapacity();
+            _currentCapacityUI += ChronosTime.deltaTime;
+            //DecreaseCapacity();
 
-            ChangeTimeScale("Player", -1f);
-            ChangeTimeScale("Root", 0.2f);
+            ChangeTimeScale("Player", -0.6f);
+            ChangeTimeScale("Root", -0.6f);
 
             _player.State = PlayerState.REWIND;
         }
 
-        if (Input.GetKeyUp(KeyCode.E) || _currentCapacity <= 0)
+        if (Input.GetKeyUp(KeyCode.E) || _currentCapacityUI <= 0)
         {
             StopRewind();
         }
@@ -96,7 +99,7 @@ public class PlayerRewind : ChronosMonoBehaviour
             ChangeTimeScale("Player", 1f);
             ChangeTimeScale("Root", 1f);
             HealIfCan();
-
+            _currentCapacityUI = _rewindCapacity;
             _rewindCooldownTimer = _rewindCooldown;
             _abilityUI.Cooldown.gameObject.SetActive(true);
             _rewindBar.gameObject.SetActive(false);

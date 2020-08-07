@@ -16,8 +16,21 @@ public class EnemyGroupProjectile : Projectile
             float y = Mathf.Cos(angle) * 1;
             Vector2 pos = new Vector2(x, y) + center;
 
-            GameObject bullet = MF_AutoPool.Spawn(weapon.Projectile, pos, Quaternion.identity);
-            bullet.GetComponent<Projectile>().Initialize(direction, weapon);
+            ChronosTime.Do
+            (
+                false,
+                delegate ()
+                {
+                    GameObject bullet = MF_AutoPool.Spawn(weapon.Projectile, pos, Quaternion.identity);
+                    bullet.GetComponent<Projectile>().Initialize(direction, weapon);
+                    return bullet;
+                },
+                delegate (GameObject bullet)
+                {
+                    MF_AutoPool.Despawn(bullet, 1f);
+                }
+            );
+            
         }
     }
 }

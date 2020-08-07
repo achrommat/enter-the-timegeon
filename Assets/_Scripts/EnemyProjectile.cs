@@ -6,6 +6,7 @@ public class EnemyProjectile : Projectile
 {
     [SerializeField] private GameObject _explosion;
     public Vector2 DeflectVelocity;
+    [SerializeField] private GameObject _hitFX;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,52 +15,65 @@ public class EnemyProjectile : Projectile
             Stats stats;
             if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
             {
-                PlayerController player = collision.GetComponent<PlayerController>();
-                if (player.State == PlayerState.DASH || player.State == PlayerState.REWIND)
+                PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+                if (player.State == PlayerState.DASH || player.State == PlayerState.REWIND || player.State == PlayerState.SHIELD || player.Stats.IsDamaged)
                 {
                     return;
                 }
 
                 if (stats.IsAlive())
                 {
+                    Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+                    GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
+                    hit.GetComponent<FX>().OnSpawned();
+                    
+                    player.Knockback(ChronosTime.rigidbody2D.velocity, 1000f);
                     stats.Damage(Damage);
-                    //GameManager.Instance.Player.Animator.SetTrigger("Hurt");
                     MF_AutoPool.Despawn(gameObject);
                 }
             }
         }
-        if (collision.CompareTag("Wall"))
+        else if (collision.gameObject.CompareTag("Wall"))
         {
-            //GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
-            //exp.GetComponent<Explosion>().OnSpawned();
+            Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+            GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
+            hit.GetComponent<FX>().OnSpawned();
             MF_AutoPool.Despawn(gameObject);
         }
-
-        if (collision.CompareTag("Enemy") && _isDeflected)
+        else if (collision.gameObject.CompareTag("Enemy") && _isDeflected)
         {
             Stats stats;
-            if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
+            if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
             {
                 if (stats.IsAlive())
                 {
+                    Vector3 collisionPoint = collision.bounds.ClosestPoint(transform.position);
+                    GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
+                    hit.GetComponent<FX>().OnSpawned();
                     stats.Damage(Damage);
                     MF_AutoPool.Despawn(gameObject);
                 }
             }
         }
-
-        if (collision.CompareTag("ExplosiveBarrel"))
+        /*if (collision.gameObject.CompareTag("ExplosiveBarrel"))
         {
             Stats stats;
-            if ((stats = collision.GetComponent(typeof(Stats)) as Stats) != null)
+            if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)
             {
                 if (stats.IsAlive())
                 {
+                    collision.GetContacts(contacts);
+
+                    Vector3 normal = contacts[0].normal;
+                    Vector2 point = contacts[0].point;
+
+                    GameObject hit = MF_AutoPool.Spawn(_hitFX, point, Quaternion.identity);
+                    hit.GetComponent<ProjectileHitFX>().OnSpawned();
                     stats.Damage(Damage);
                     MF_AutoPool.Despawn(gameObject);
                 }
             }
-        }
+        }*/
     }
 
     public void Deflect()

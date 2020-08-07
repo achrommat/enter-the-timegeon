@@ -61,7 +61,7 @@ public class PlayerDash : ChronosMonoBehaviour
         if (GetCanDash())
         {
             Initialize();
-            SlowTime();
+            //SlowTime();
         }
 
         if (_slowtimeCooldownTimer > 0)
