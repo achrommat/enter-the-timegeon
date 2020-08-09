@@ -89,6 +89,7 @@ public class EnemySpawner : ChronosMonoBehaviour
             _nextWave = 0;
             IsOver = true;
             GameManager.Instance.PortalManager.HandlePortalActivation(true);
+            GameManager.Instance.BattleEndMusic();
             //_onChangeDoorState.Invoke();
             Debug.Log("All Waves Complete Looping...");
         }

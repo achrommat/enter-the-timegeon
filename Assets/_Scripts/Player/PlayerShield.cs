@@ -8,11 +8,23 @@ public class PlayerShield : ChronosMonoBehaviour
     [SerializeField] private float _shieldCooldown = 5f;
     private float _shieldCooldownTimer;
 
+    [SerializeField] private Sprite[] _icons;
+    [SerializeField] private UnityEngine.UI.Image _image;
+
     private void Update()
     {
-        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL)
+        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL || _player.IsInDialog || _player.IsInFinalDialog || _player.IsInPortal)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _image.sprite = _icons[1];
+        }
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            _image.sprite = _icons[0];
         }
 
         if (_shieldCooldownTimer > 1)
@@ -41,7 +53,7 @@ public class PlayerShield : ChronosMonoBehaviour
             GameObject shieldObj = MF_AutoPool.Spawn(_shield, transform.position, Quaternion.identity);
             shieldObj.GetComponent<Shield>().OnSpawned();
             _shieldCooldownTimer = _shieldCooldown;
-            _abilityUI.Cooldown.gameObject.SetActive(true);
+            ChronosTime.Plan(0.1f, delegate () { _abilityUI.Cooldown.gameObject.SetActive(true); });
         }
     }
 }

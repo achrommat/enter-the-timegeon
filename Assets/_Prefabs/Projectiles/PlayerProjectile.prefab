@@ -154,6 +154,7 @@ MonoBehaviour:
   Damage: 0
   IsFrozen: 0
   _hitFX: {fileID: 3980321706615406105, guid: 5f38836448cf77142982636d426260c7, type: 3}
+  _freezeDuration: 0.005
 --- !u!114 &-8474654141701185033
 MonoBehaviour:
   m_ObjectHideFlags: 0

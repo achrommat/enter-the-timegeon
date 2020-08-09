@@ -27,7 +27,7 @@ public class EnemyProjectile : Projectile
                     GameObject hit = MF_AutoPool.Spawn(_hitFX, collisionPoint, Quaternion.identity);
                     hit.GetComponent<FX>().OnSpawned();
                     
-                    player.Knockback(ChronosTime.rigidbody2D.velocity, 1000f);
+                    //player.Knockback(ChronosTime.rigidbody2D.velocity, 1000f);
                     stats.Damage(Damage);
                     MF_AutoPool.Despawn(gameObject);
                 }
@@ -40,7 +40,7 @@ public class EnemyProjectile : Projectile
             hit.GetComponent<FX>().OnSpawned();
             MF_AutoPool.Despawn(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Enemy") && _isDeflected)
+        else if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss")) && _isDeflected)
         {
             Stats stats;
             if ((stats = collision.gameObject.GetComponent(typeof(Stats)) as Stats) != null)

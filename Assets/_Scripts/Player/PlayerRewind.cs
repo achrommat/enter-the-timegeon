@@ -18,6 +18,9 @@ public class PlayerRewind : ChronosMonoBehaviour
     private float _capacityTimer;
     private float _tick = 1f;
 
+    [SerializeField] private Sprite[] _icons;
+    [SerializeField] private UnityEngine.UI.Image _image;
+
     private void Start()
     {
         _currentCapacity = _rewindCapacity;
@@ -25,11 +28,25 @@ public class PlayerRewind : ChronosMonoBehaviour
         _abilityUI.Cooldown.gameObject.SetActive(true);
     }
 
+    private void OnEnable()
+    {
+        Start();
+    }
+
     private void Update()
     {
-        if (!_player.Stats.IsAlive())
+        if (!_player.Stats.IsAlive() || _player.IsInDialog || _player.IsInFinalDialog || _player.IsInPortal)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _image.sprite = _icons[1];
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            _image.sprite = _icons[0];
         }
 
         if (_rewindCooldownTimer > 1)
@@ -69,6 +86,7 @@ public class PlayerRewind : ChronosMonoBehaviour
 
             ChangeTimeScale("Player", -0.6f);
             ChangeTimeScale("Root", -0.6f);
+            ChangeTimeScale("Free", -0.6f);
 
             _player.State = PlayerState.REWIND;
         }
@@ -98,6 +116,7 @@ public class PlayerRewind : ChronosMonoBehaviour
 
             ChangeTimeScale("Player", 1f);
             ChangeTimeScale("Root", 1f);
+            ChangeTimeScale("Free", 1f);
             HealIfCan();
             _currentCapacityUI = _rewindCapacity;
             _rewindCooldownTimer = _rewindCooldown;

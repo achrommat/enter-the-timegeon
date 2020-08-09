@@ -325,6 +325,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bar: {fileID: 328803946}
   Text: {fileID: 0}
+--- !u!1 &2067176142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2067176143}
+  m_Layer: 9
+  m_Name: Floppy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2067176143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067176142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2833996375286155106}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1336844354999124469
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +429,7 @@ Transform:
   - {fileID: 1842620521291903592}
   - {fileID: 1748015393}
   - {fileID: 940074911}
+  - {fileID: 2067176143}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -485,7 +516,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0.0027959347, y: 0.65871096}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -496,7 +527,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.8}
+  m_Size: {x: 0.61183023, y: 1.0739841}
   m_EdgeRadius: 0
 --- !u!50 &2833996375286155110
 Rigidbody2D:
@@ -556,10 +587,14 @@ MonoBehaviour:
   Animator: {fileID: 2833996375286155108}
   Sprite: {fileID: 2833996375286155109}
   Collider: {fileID: 2833996375286155111}
+  Floppy: {fileID: 2067176143}
   IsDead: 0
   StartPosition: {x: 0, y: 0}
   _reloadTime: 1
   WeaponAnim: {fileID: 1470872942}
+  IsInDialog: 0
+  IsInFinalDialog: 0
+  IsInPortal: 0
 --- !u!114 &7558717580549216089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,9 +634,9 @@ MonoBehaviour:
   ShootPosition: {fileID: 2833996375869130253}
   _shellPrefab: {fileID: 7257923914406461558, guid: 1a9afc86310b0e34bbc78666668e9b91, type: 3}
   _shellEjectionPosition: {fileID: 5539606215348497015}
-  _maxShellCount: 10
-  _shakeMagnitude: 2
-  _shakeRoughness: 5
+  _maxShellCount: 30
+  _shakeMagnitude: 1
+  _shakeRoughness: 4
   _shakeFadeInTime: 0.2
   _shakeFadeOutTime: 0.2
 --- !u!114 &7657061719638695039
@@ -637,13 +672,17 @@ MonoBehaviour:
   _dashForce: 40
   _dashCooldown: 1
   _dashDuration: 0.1
-  _timeToRestoreDash: 5
+  _timeToRestoreDash: 4
   _slowTimeScale: 0.2
   _playerSlowTimeScale: 0.5
   _slowTimeDuration: 2
   _slowTimeCooldown: 8
   _distanceBetweenImages: 0.8
   _afterImage: {fileID: 4011007202173906460, guid: a3ac37b0a9b743f42949331cdd2570e4, type: 3}
+  _icons:
+  - {fileID: 8586885197115800619, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  - {fileID: -6595680761151332689, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  _image: {fileID: 0}
 --- !u!114 &587447921963399806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +698,11 @@ MonoBehaviour:
   _player: {fileID: 2833996375286155113}
   _abilityUI: {fileID: 0}
   _timestop: {fileID: 7420605565922154121, guid: 09ab79c12b3d5934e81cea16ad2b949f, type: 3}
-  _timestopCooldown: 5
+  _timestopCooldown: 10
+  _icons:
+  - {fileID: 1080825480604336155, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  - {fileID: 7448113381798972013, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  _image: {fileID: 0}
 --- !u!114 &3013471355849389926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +718,11 @@ MonoBehaviour:
   _player: {fileID: 2833996375286155113}
   _abilityUI: {fileID: 0}
   _shield: {fileID: 9134981737216655726, guid: 0e6dbebc5d4ae634b9e6cf0351f75020, type: 3}
-  _shieldCooldown: 5
+  _shieldCooldown: 12
+  _icons:
+  - {fileID: 8160775752198118580, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  - {fileID: -273060469431498887, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  _image: {fileID: 0}
 --- !u!114 &1933154980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,9 +739,13 @@ MonoBehaviour:
   _abilityUI: {fileID: 0}
   _rewindBar: {fileID: 1748015392}
   _healAmount: 2
-  _rewindCooldown: 10
+  _rewindCooldown: 15
   _rewindCapacity: 5
   _currentCapacity: 0
+  _icons:
+  - {fileID: -9136572144232859775, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  - {fileID: 7843416716369364892, guid: 6f4a09de3e946784495548108f928a7b, type: 3}
+  _image: {fileID: 0}
 --- !u!114 &1452437049
 MonoBehaviour:
   m_ObjectHideFlags: 0

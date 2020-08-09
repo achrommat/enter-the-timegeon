@@ -13,6 +13,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     private void Start()
     {
         _player = GameManager.Instance.Player.transform;
+        _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
     }
 
     private Vector2 GetDirection()
@@ -28,6 +29,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         if (ChronosTime.time >= _nextAttackTime)
         {
+            _enemy.Animator.SetTrigger("Attack");
             Vector2 direction = GetDirection();
             PlanBullet(direction.normalized, _shootPosition.position);
             //CreateBullet((GameManager.Instance.Player.transform.position - transform.position).normalized);
@@ -37,19 +39,16 @@ public class EnemyShootable : ChronosMonoBehaviour
 
     private void PlanBullet(Vector2 direction, Vector2 position)
     {
-        _enemy.Animator.SetTrigger("Attack");
         ChronosTime.Do
         (
             false,
             delegate ()
             {
-                _enemy.ShotCount++;
                 GameObject bullet = CreateBullet(direction, position);
                 return bullet;
             },
             delegate (GameObject bullet)
             {
-                _enemy.ShotCount--;
                 MF_AutoPool.Despawn(bullet, 1f);
             }
         );
@@ -66,6 +65,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         if (ChronosTime.time >= _nextAttackTime)
         {
+            _enemy.Animator.SetTrigger("Attack");
             StartCoroutine(BurstFire());
             _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
         }
@@ -75,6 +75,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
         {
+            _enemy.Animator.SetTrigger("Attack");
             Vector2 direction = GetDirection();
             PlanBullet(direction.normalized, _shootPosition.position);
             yield return ChronosTime.WaitForSeconds(_enemy.Weapon.ProjectileFireRate);
@@ -85,6 +86,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         if (ChronosTime.time >= _nextAttackTime)
         {
+            _enemy.Animator.SetTrigger("Attack");
             float coneAngle = 60f;
             float angleStep = coneAngle / _enemy.Weapon.ProjectileCount;
             float angle = ShotgunGetAngle(angleStep);
@@ -113,6 +115,7 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         if (ChronosTime.time >= _nextAttackTime)
         {
+            _enemy.Animator.SetTrigger("Attack");
             float angleStep = 360f / _enemy.Weapon.ProjectileCount;
             float angle = 0f;
 
@@ -136,7 +139,8 @@ public class EnemyShootable : ChronosMonoBehaviour
     public void SinCosShoot()
     {
         if (ChronosTime.time >= _nextAttackTime)
-        {            
+        {
+            
             StartCoroutine(SinCosFire());
             _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
         }
@@ -146,6 +150,8 @@ public class EnemyShootable : ChronosMonoBehaviour
     {
         float angleStep = 360f / _enemy.Weapon.ProjectileCount;
         float angle = 0f;
+
+        //_enemy.Animator.SetTrigger("SinCos");
 
         for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
         {
@@ -160,24 +166,40 @@ public class EnemyShootable : ChronosMonoBehaviour
             angle += angleStep;
             yield return ChronosTime.WaitForSeconds(_enemy.Weapon.ProjectileFireRate);
         }
+        ChronosTime.Do
+            (
+                false,
+                delegate ()
+                {
+                    _enemy.ShotCount++;
+                },
+                delegate ()
+                {
+                    _enemy.ShotCount--;
+                }
+            );
+
         
     }
 
     public void GroupShoot()
     {
         if (ChronosTime.time >= _nextAttackTime)
-        {            
+        {
+            _enemy.Animator.SetTrigger("Attack");
             ChronosTime.Do
             (
                 false,
                 delegate ()
                 {
+                    _enemy.ShotCount++;
                     GameObject bullet = CreateGroupBullet();
                     return bullet;
                 },
                 delegate (GameObject bullet)
                 {
                     MF_AutoPool.Despawn(bullet);
+                    _enemy.ShotCount--;
                 }
             );
             
@@ -191,5 +213,72 @@ public class EnemyShootable : ChronosMonoBehaviour
         GameObject groupProjectileObj = MF_AutoPool.Spawn(_enemy.GroupProjectile, _shootPosition.position, Quaternion.identity);
         groupProjectileObj.GetComponent<EnemyGroupProjectile>().OnSpawned(_shootPosition.position, direction.normalized, _enemy.Weapon);
         return groupProjectileObj;
-    }    
+    }
+
+    public void HardRadialShoot()
+    {
+        if (ChronosTime.time >= _nextAttackTime)
+        {
+            ShootFirstRadialWave();
+            _nextAttackTime = ChronosTime.time + _enemy.Weapon.AttackDelay;
+        }
+    }
+
+    private void ShootFirstRadialWave()
+    {
+        _enemy.Animator.SetTrigger("Attack");
+        float angleStep = 360f / _enemy.Weapon.ProjectileCount;
+        float angle = 0f;
+
+        for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
+        {
+            // Direction calculations.
+            float projectileDirXPosition = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180) * 1f;
+            float projectileDirYPosition = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180) * 1f;
+
+            // Create vectors.
+            Vector3 projectileVector = new Vector3(projectileDirXPosition, projectileDirYPosition, 0);
+            Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized;
+            PlanBullet(projectileMoveDirection, _shootPosition.position);
+
+            angle += angleStep;
+        }
+        ChronosTime.Plan(1f, delegate () { ShootSecondRadialWave(); });
+        
+    }
+
+    private void ShootSecondRadialWave()
+    {
+        _enemy.Animator.SetTrigger("Attack");
+        int k = _enemy.Weapon.ProjectileCount * 2;
+        float angleStep = 360f / k;
+        float angle = angleStep;
+
+        for (int i = 0; i < _enemy.Weapon.ProjectileCount; i++)
+        {
+            // Direction calculations.
+            float projectileDirXPosition = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180) * 1f;
+            float projectileDirYPosition = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180) * 1f;
+
+            // Create vectors.
+            Vector3 projectileVector = new Vector3(projectileDirXPosition, projectileDirYPosition, 0);
+            Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized;
+            PlanBullet(projectileMoveDirection, _shootPosition.position);
+
+            angle += 2 * angleStep;
+        }
+
+        ChronosTime.Do
+            (
+                false,
+                delegate ()
+                {
+                    _enemy.ShotCount++;
+                },
+                delegate ()
+                {
+                    _enemy.ShotCount--;
+                }
+            );
+    }
 }

@@ -26,7 +26,8 @@ public class PlayerController : ChronosMonoBehaviour
     public PlayerStats Stats;
     public Animator Animator;
     public SpriteRenderer Sprite;
-    public Collider2D Collider;    
+    public Collider2D Collider;
+    public Transform Floppy;
 
     public float HorizontalMove
     {
@@ -82,6 +83,10 @@ public class PlayerController : ChronosMonoBehaviour
     [SerializeField] private float _reloadTime = 1f;
     public Animator WeaponAnim;
 
+    public bool IsInDialog = false;
+    public bool IsInFinalDialog = false;
+    public bool IsInPortal = false;
+
     private void Start()
     {
         GetMouseInput();
@@ -89,19 +94,51 @@ public class PlayerController : ChronosMonoBehaviour
         WeaponAnim.gameObject.SetActive(true);
     }
 
+    private void OnEnable()
+    {
+        WeaponAnim.gameObject.SetActive(true);
+        Animator.SetTrigger("Shield");
+        if (IsDead)
+        {
+            ChronosTime.ResetRecording();
+        }
+        IsDead = false;
+        IsInDialog = false;
+        IsInFinalDialog = false;
+        IsInPortal = false;
+        Sprite.color = Color.white;
+    }
+
     private void DeathHandler()
     {
         if (!IsDead)
         {
-            IsDead = true;
+            Animator.SetBool("Die", true);
             GameManager.Instance.PlayerDeath();
-            WeaponAnim.gameObject.SetActive(false);
-            Animator.SetTrigger("Death");
+            WeaponAnim.gameObject.SetActive(false);            
+            IsDead = true;
         }
     }
 
     private void Update()
     {
+        if (IsInFinalDialog || IsInPortal)
+        {
+            return;
+        }
+
+
+        if (IsInDialog)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameManager.Instance.ActivateBossBattle();
+            }
+            return;
+        }
+
+
+
         GetInput();
 
         if (!Stats.IsAlive())
@@ -125,7 +162,7 @@ public class PlayerController : ChronosMonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!Stats.IsAlive())
+        if (!Stats.IsAlive() || IsInDialog || IsInFinalDialog || IsInPortal)
         {
             return;
         }

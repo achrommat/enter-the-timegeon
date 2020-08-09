@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: PlayerWeapon
   m_EditorClassIdentifier: 
   Damage: 1
-  Recoil: 5
-  ProjectileSpeed: 10
-  ProjectileLifetime: 2
-  MaxAmmo: 10
-  CurrentAmmo: 10
+  Recoil: 10
+  ProjectileSpeed: 15
+  ProjectileLifetime: 10
+  MaxAmmo: 20
+  CurrentAmmo: 15
   Type: 0
-  AttackDelay: 0.3
+  AttackDelay: 0.2
   ProjectileCount: 3
   ProjectileFireRate: 1
   Projectile: {fileID: 1049465036424695676, guid: 57140ba7f4d853c4287c0a1208fb0bdc, type: 3}

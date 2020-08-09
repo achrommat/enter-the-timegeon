@@ -298,6 +298,8 @@ MonoBehaviour:
   GroupProjectile: {fileID: 0}
   ShotCount: 0
   IsSpawned: 0
+  _explosion: {fileID: 8531918800044756631, guid: baa5f98881f045a44a13faa6ff558980, type: 3}
+  _explosionChance: 0.5
   _xBoundary: 6
   _waitTime: 0.5
 --- !u!114 &8847428170623526980
@@ -388,9 +390,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 12
+  slowdownDistance: 7
   pickNextWaypointDist: 2
-  endReachedDistance: 10
+  endReachedDistance: 6.3
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0

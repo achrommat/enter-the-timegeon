@@ -2,15 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalManager : MonoBehaviour
+public class PortalManager : ChronosMonoBehaviour
 {
-    [SerializeField] private Transform[] _portals;
+    [SerializeField] private Portal[] _portals;
+
 
     public void HandlePortalActivation(bool activate)
     {
-        foreach (Transform portal in _portals)
+        if (!activate)
         {
-            portal.gameObject.SetActive(activate);
+            StartCoroutine(ClosePortals());
         }
+        foreach (Portal portal in _portals)
+        {
+            if (!activate)
+            {
+                portal.Collider.enabled = false;
+                portal.Animator.SetTrigger("Close");
+                return;
+            }
+            portal.gameObject.SetActive(activate);
+            portal.Collider.enabled = true;
+        }
+    }
+
+    private IEnumerator ClosePortals()
+    {
+        yield return ChronosTime.WaitForSeconds(1f);
+        foreach (Portal portal in _portals)
+        {                       
+            portal.gameObject.SetActive(false);
+        }
+        GameManager.Instance.Player.IsInPortal = false;
     }
 }

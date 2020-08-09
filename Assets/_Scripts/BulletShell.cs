@@ -21,16 +21,17 @@ public class BulletShell : ChronosMonoBehaviour
     {
         _isEjected = false;
         _rb = ChronosTime.rigidbody2D;
-        _rb.gravityScale = 0.5f;
+        _rb.gravityScale = 0.3f;
         AddEjectionForce();
-        ChronosTime.Plan(_duration, delegate { StopShell(); });
+        float randomDuration = Random.Range(_duration, _duration + 0.5f);
+        ChronosTime.Plan(randomDuration, delegate { StopShell(); });
         _isEjected = true;
     }
 
     private void AddEjectionForce()
     {
         Vector2 direction = Vector2.right;
-        float randomAngle = Random.Range(45, 135);
+        float randomAngle = Random.Range(45, 180);
         direction = Quaternion.AngleAxis(randomAngle, Vector3.forward) * direction;
         _rb.AddForce(direction * _force, ForceMode2D.Force);
     }

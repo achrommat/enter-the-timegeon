@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4291ff5634cfc4fb23820b67ebf89f, type: 3}
   m_Name: EnemyShotgun
   m_EditorClassIdentifier: 
-  Damage: 0
-  Recoil: 4
+  Damage: 1
+  Recoil: 5
   ProjectileSpeed: 5
-  ProjectileLifetime: 3
+  ProjectileLifetime: 10
+  MaxAmmo: 6
+  CurrentAmmo: 6
   Type: 2
   AttackDelay: 5
   ProjectileCount: 5

@@ -33,7 +33,10 @@ public class PlayerDash : ChronosMonoBehaviour
     [Header("After Image")]
     private Vector2 _lastImagePos;
     [SerializeField] private float _distanceBetweenImages;
-    [SerializeField] private GameObject _afterImage;    
+    [SerializeField] private GameObject _afterImage;
+
+    [SerializeField] private Sprite[] _icons;
+    [SerializeField] private UnityEngine.UI.Image _image;
 
     private void Start()
     {
@@ -43,9 +46,18 @@ public class PlayerDash : ChronosMonoBehaviour
 
     private void Update()
     {
-        if (!_player.Stats.IsAlive())
+        if (!_player.Stats.IsAlive() || _player.IsInDialog || _player.IsInFinalDialog || _player.IsInPortal)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _image.sprite = _icons[1];
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            _image.sprite = _icons[0];
         }
 
         RestoreDashCount();

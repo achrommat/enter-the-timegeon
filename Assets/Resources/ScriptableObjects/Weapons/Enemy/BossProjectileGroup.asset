@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4291ff5634cfc4fb23820b67ebf89f, type: 3}
   m_Name: BossProjectileGroup
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 1
   Recoil: 1
-  ProjectileSpeed: 5
-  ProjectileLifetime: 5
+  ProjectileSpeed: 6
+  ProjectileLifetime: 10
+  MaxAmmo: 6
+  CurrentAmmo: 6
   Type: 0
   AttackDelay: 2
   ProjectileCount: 10

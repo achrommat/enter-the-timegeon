@@ -1,7 +1,19 @@
 fileFormatVersion: 2
 guid: da13924869b25eb4d8ddc6877899a4ea
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2874580154099240604
+    second: Boss_Attack_Simple_0
+  - first:
+      213: 169326825726167947
+    second: Boss_Attack_Simple_1
+  - first:
+      213: -2704337468428684445
+    second: Boss_Attack_Simple_2
+  - first:
+      213: 4858721722825172120
+    second: Boss_Attack_Simple_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,11 +135,95 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Boss_Attack_Simple_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 80
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 461f68c74907b18d0800000000000000
+      internalID: -2874580154099240604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Attack_Simple_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 64
+        width: 80
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8b4a52d9d1995200800000000000000
+      internalID: 169326825726167947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Attack_Simple_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36377819663487ad0800000000000000
+      internalID: -2704337468428684445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Attack_Simple_3
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 80
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 894e77f0aa5ad6340800000000000000
+      internalID: 4858721722825172120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2b6fb2ba1d2ee044196e8ee55e2e91f4
     internalID: 0
     vertices: []
     indices: 

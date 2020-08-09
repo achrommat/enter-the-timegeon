@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4291ff5634cfc4fb23820b67ebf89f, type: 3}
   m_Name: BossSinCos
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 1
   Recoil: 1
   ProjectileSpeed: 5
   ProjectileLifetime: 5
+  MaxAmmo: 6
+  CurrentAmmo: 6
   Type: 4
-  AttackDelay: 5
+  AttackDelay: 3
   ProjectileCount: 20
-  ProjectileFireRate: 0.3
+  ProjectileFireRate: 0.2
   Projectile: {fileID: 1049465036424695676, guid: 67b819c09763f834cb470dfae63ecdae, type: 3}
   AudioSource: {fileID: 0}
   MuzzleFlash: {fileID: 0}

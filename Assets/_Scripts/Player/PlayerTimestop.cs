@@ -8,11 +8,23 @@ public class PlayerTimestop : ChronosMonoBehaviour
     [SerializeField] private float _timestopCooldown = 5f;
     private float _timestopCooldownTimer;
 
+    [SerializeField] private Sprite[] _icons;
+    [SerializeField] private UnityEngine.UI.Image _image;
+
     private void Update()
     {
-        if (!_player.Stats.IsAlive())
+        if (!_player.Stats.IsAlive() || _player.State != PlayerState.UNDER_CONTROL || _player.IsInDialog || _player.IsInFinalDialog || _player.IsInPortal)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            _image.sprite = _icons[1];
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            _image.sprite = _icons[0];
         }
 
         if (_timestopCooldownTimer > 0)
@@ -42,7 +54,7 @@ public class PlayerTimestop : ChronosMonoBehaviour
             GameObject timestopObj = MF_AutoPool.Spawn(_timestop, pos, Quaternion.identity);
             timestopObj.GetComponent<Timestop>().OnSpawned();
             _timestopCooldownTimer = _timestopCooldown;
-            _abilityUI.Cooldown.gameObject.SetActive(true);
+            ChronosTime.Plan(0.1f, delegate() { _abilityUI.Cooldown.gameObject.SetActive(true); });
         }
     }
 }

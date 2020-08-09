@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 180339911}
   - component: {fileID: 180339910}
   - component: {fileID: 180339913}
+  - component: {fileID: 645613557}
   m_Layer: 0
   m_Name: Timekeeper
   m_TagString: Untagged
@@ -100,6 +101,23 @@ MonoBehaviour:
   _parentKey: 
   _parentBlend: 0
   _key: Player
+--- !u!114 &645613557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180339908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0144e3ad8a88947298e2dca62625e6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localTimeScale: 1
+  _paused: 0
+  _parentKey: 
+  _parentBlend: 0
+  _key: Free
 --- !u!1 &1595880233246239065
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,8 +172,40 @@ MonoBehaviour:
   Audio: {fileID: 0}
   PortalManager: {fileID: 0}
   Crosshair: {fileID: 0}
+  HitStop: {fileID: 0}
   DeathX: {fileID: 8657561068692463162, guid: bc864acd08224bf46bfd7c0b76d8b2ae, type: 3}
   TimeToRestart: 5
+  BossDialog: {fileID: 0}
+  BossHP: {fileID: 0}
+  _onPlayerEnteredBossArena:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 025fde2effc79c14c98436e4019f2e01, type: 2}
+        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  FinalDialog: {fileID: 0}
+  DeathDialog: {fileID: 0}
+  Spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Boss: {fileID: 0}
+  _normalClip: {fileID: 8300000, guid: 9df376a6830545c4d91f6c76e73f403d, type: 3}
+  _battleClip: {fileID: 8300000, guid: 7996871ef42caac47a993a722f18f5b5, type: 3}
+  _bossClip: {fileID: 8300000, guid: 3f8e6a5a7e2b0da42bc30bac6183577d, type: 3}
+  NormalSource: {fileID: 0}
+  BattleSource: {fileID: 0}
+  BossSource: {fileID: 0}
 --- !u!114 &-2299690906438140551
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ TagManager:
   - Explosion
   - ExplosiveBarrel
   - BossShield
+  - Boss
+  - Pickup
   layers:
   - Default
   - TransparentFX

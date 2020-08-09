@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4291ff5634cfc4fb23820b67ebf89f, type: 3}
   m_Name: EnemyRadial
   m_EditorClassIdentifier: 
-  Damage: 0
+  Damage: 1
   Recoil: 4
   ProjectileSpeed: 5
   ProjectileLifetime: 3
+  MaxAmmo: 6
+  CurrentAmmo: 6
   Type: 3
   AttackDelay: 5
   ProjectileCount: 12

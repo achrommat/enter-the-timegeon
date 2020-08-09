@@ -324,10 +324,12 @@ MonoBehaviour:
   Path: {fileID: 4996851989363911011}
   DropLoot: {fileID: 3034866929193776852}
   Animator: {fileID: 6463467175905487952}
-  _attackDistance: 5
+  _attackDistance: 10
   GroupProjectile: {fileID: 0}
   ShotCount: 0
   IsSpawned: 0
+  _explosion: {fileID: 8531918800044756631, guid: baa5f98881f045a44a13faa6ff558980, type: 3}
+  _explosionChance: 0.3
   _xBoundary: 6
   _waitTime: 0.5
 --- !u!114 &6427896394136223750
@@ -342,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb47cd87bc200234380c3cee0f2fb8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 4
+  MaxHealth: 3
   CurrentHealth: 0
   Speed: 3
   DamageFeedback: {fileID: 722476326}
@@ -407,7 +409,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 2
+  maxSpeed: 3
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -418,9 +420,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 6
+  slowdownDistance: 5.6
   pickNextWaypointDist: 2
-  endReachedDistance: 5.1
+  endReachedDistance: 5
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0

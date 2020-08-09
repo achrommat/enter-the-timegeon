@@ -6,7 +6,7 @@ public class PickupObjectBase : ChronosMonoBehaviour
     protected PlayerController _player;
     [SerializeField] protected float _flybackDistance = 5f;
     [SerializeField] protected float _flybackSpeed = 5f;
-    [SerializeField] protected float _droppingForce, _droppingDuration;
+    [SerializeField] protected float _droppingForce, _droppingDuration, _despawnTime;
     public float DropChance = 0.5f;
     protected RigidbodyTimeline2D _rb;
 
@@ -23,6 +23,7 @@ public class PickupObjectBase : ChronosMonoBehaviour
         _rb.gravityScale = 0.5f;
         AddDroppingForce();
         ChronosTime.Plan(_droppingDuration, delegate { StopDropping(); });
+        ChronosTime.Plan(_despawnTime, delegate { Despawn(); });
     }
 
     private void AddDroppingForce()
@@ -42,6 +43,11 @@ public class PickupObjectBase : ChronosMonoBehaviour
     private void Update()
     {
         FlybackToPlayer();
+    }
+
+    protected virtual void Despawn()
+    {
+        MF_AutoPool.Despawn(gameObject);
     }
 
     protected virtual void FlybackToPlayer() { }

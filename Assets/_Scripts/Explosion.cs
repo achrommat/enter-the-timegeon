@@ -15,10 +15,15 @@ public class Explosion : ChronosMonoBehaviour
 
     [SerializeField] private AudioSource _audio;
 
+    [SerializeField] private float _freezeDuration = 0.1f;
+
     public void OnSpawned()
-    {
+    {        
         ChronosTime.Plan(_activeTime, delegate { Despawn(); });
         CameraShaker.Instance.ShakeOnce(_shakeMagnitude, _shakeRoughness, _shakeFadeInTime, _shakeFadeOutTime);
+
+        
+
         //_audio.Play();
     }
 
@@ -34,7 +39,13 @@ public class Explosion : ChronosMonoBehaviour
         {
             Vector2 direction = other.transform.position - transform.position;
             other.GetComponent<Timeline>().rigidbody2D.AddForce(direction * _knockbackForce, ForceMode2D.Force);
-            stats.Damage(2f);
+
+            if (other.CompareTag("Player") || other.CompareTag("Boss"))
+            {
+                stats.Damage(2f);
+                return;
+            }
+            stats.Damage(stats.MaxHealth);
         }
     }
 }

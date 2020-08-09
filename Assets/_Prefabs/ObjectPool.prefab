@@ -102,6 +102,57 @@ MonoBehaviour:
     prefab: {fileID: 3980321706615406105, guid: 5f38836448cf77142982636d426260c7, type: 3}
     printLogOnQuit: 0
   masterPool: []
+--- !u!1 &1816110141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816110142}
+  - component: {fileID: 1816110143}
+  m_Layer: 0
+  m_Name: EnemyDeathX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1816110142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816110141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 704353181882332825}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1816110143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816110141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b92af29f025148109c26acd69c9401b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolBlock:
+    size: 20
+    emptyBehavior: 0
+    maxSize: 40
+    maxEmptyBehavior: 0
+    prefab: {fileID: 8657561068692463162, guid: bc864acd08224bf46bfd7c0b76d8b2ae, type: 3}
+    printLogOnQuit: 0
+  masterPool: []
 --- !u!1 &388071444400991527
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +252,7 @@ Transform:
   - {fileID: 7713401560760894464}
   - {fileID: 1562289083}
   - {fileID: 3324174255175817540}
+  - {fileID: 1816110142}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -671,7 +723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolBlock:
-    size: 20
+    size: 5
     emptyBehavior: 0
     maxSize: 40
     maxEmptyBehavior: 0

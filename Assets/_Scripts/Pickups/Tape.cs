@@ -25,4 +25,5 @@ public class Tape : PickupObjectBase
             transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _flybackSpeed * ChronosTime.deltaTime);
         }
     }
+
 }

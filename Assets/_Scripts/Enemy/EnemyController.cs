@@ -23,6 +23,8 @@ public class EnemyController : ChronosMonoBehaviour
     public GameObject GroupProjectile;
     public int ShotCount = 0;
     public bool IsSpawned = false;
+    [SerializeField] protected GameObject _explosion;
+    [SerializeField] private float _explosionChance = 0.2f;
 
     [Header("Patrol")]
     [SerializeField] private float _xBoundary = 28;
@@ -42,11 +44,6 @@ public class EnemyController : ChronosMonoBehaviour
 
     public virtual void OnSpawned()
     {
-        if (_isDead)
-        {
-            Animator.SetTrigger("Death");
-        }
-
         _isDead = false;
         _originWaitTime = _waitTime;
         _player = GameManager.Instance.Player;
@@ -56,13 +53,16 @@ public class EnemyController : ChronosMonoBehaviour
             Path.canMove = false;
         }
         ChronosTime.rewindable = true;
-        ChronosTime.Plan(1f, delegate () { AfterSpawned(); });
+        ChronosTime.Plan(0.5f, delegate () { AfterSpawned(); });
     }
 
     private void AfterSpawned()
     {
         IsSpawned = true;
-        Path.canMove = true;
+        if (Path)
+        {
+            Path.canMove = true;
+        }
     }
 
     private void GetPatrolPoints()
@@ -123,6 +123,9 @@ public class EnemyController : ChronosMonoBehaviour
     {
         if (!_isDead)
         {
+            Explode();
+
+
             if (Path)
             {
                 Path.canMove = false;
@@ -134,9 +137,24 @@ public class EnemyController : ChronosMonoBehaviour
             IsSpawned = false;
             DropLoot.Drop();
 
-            ChronosTime.Plan(1f, delegate () { MF_AutoPool.Despawn(gameObject); });
+            ChronosTime.Plan(2f, delegate () { 
+                MF_AutoPool.Despawn(gameObject);
+            });
             //MF_AutoPool.Despawn(gameObject);
             _isDead = true;
+        }
+    }
+
+    protected virtual void Explode()
+    {
+        float random = Random.Range(0, 1f);
+        if (random <= _explosionChance)
+        {
+            ChronosTime.Plan(0.1f, delegate {
+                GameObject exp = MF_AutoPool.Spawn(_explosion, transform.position, Quaternion.identity);
+                exp.GetComponent<Explosion>().OnSpawned();
+                GameManager.Instance.HitStop.Stop(0.1f);
+            });            
         }
     }
 

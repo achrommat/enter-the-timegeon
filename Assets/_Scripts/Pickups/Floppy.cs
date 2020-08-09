@@ -11,10 +11,17 @@ public class Floppy : PickupObjectBase
             {
                 if (stats.IsAlive())
                 {
-                    
+                    stats.GetComponent<PlayerController>().Animator.SetTrigger("Floppy");
+                    stats.GetComponent<PlayerController>().WeaponAnim.gameObject.SetActive(false);
+                    GameManager.Instance.ActivateFinalDialog();
                     MF_AutoPool.Despawn(gameObject);
                 }
             }
         }
+    }
+
+    protected override void Despawn()
+    {
+        //MF_AutoPool.Despawn(gameObject);
     }
 }
